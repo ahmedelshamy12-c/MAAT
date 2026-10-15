@@ -1,0 +1,2391 @@
+{
+  "overall": {
+    "count": 82,
+    "recall_at_k": 0.8292682926829268,
+    "mrr": 0.6707317073170732,
+    "source_chunk_hit": 0.5365853658536586,
+    "chunking_loss_rate_when_law_retrieved": 0.35294117647058826,
+    "chunking_loss_count": 24
+  },
+  "by_category": {
+    "الأجراءات الجنائية": {
+      "count": 13,
+      "recall_at_k": 0.9230769230769231,
+      "mrr": 0.7371794871794872,
+      "source_chunk_hit": 0.6923076923076923
+    },
+    "الدستور": {
+      "count": 10,
+      "recall_at_k": 0.7,
+      "mrr": 0.4166666666666667,
+      "source_chunk_hit": 0.3
+    },
+    "العقوبات": {
+      "count": 13,
+      "recall_at_k": 0.6153846153846154,
+      "mrr": 0.4358974358974359,
+      "source_chunk_hit": 0.15384615384615385
+    },
+    "القوانين والتشريعات": {
+      "count": 10,
+      "recall_at_k": 0.8,
+      "mrr": 0.6833333333333333,
+      "source_chunk_hit": 0.5
+    },
+    "المرافعات": {
+      "count": 13,
+      "recall_at_k": 0.7692307692307693,
+      "mrr": 0.5,
+      "source_chunk_hit": 0.6153846153846154
+    },
+    "جمارك": {
+      "count": 10,
+      "recall_at_k": 1.0,
+      "mrr": 0.925,
+      "source_chunk_hit": 0.7
+    },
+    "قوانين الأحوال الشخصية": {
+      "count": 13,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.7692307692307693
+    }
+  },
+  "by_difficulty": {
+    "easy": {
+      "count": 18,
+      "recall_at_k": 0.8888888888888888,
+      "mrr": 0.6712962962962963,
+      "source_chunk_hit": 0.5555555555555556
+    },
+    "medium": {
+      "count": 43,
+      "recall_at_k": 0.813953488372093,
+      "mrr": 0.6608527131782946,
+      "source_chunk_hit": 0.5116279069767442
+    },
+    "hard": {
+      "count": 21,
+      "recall_at_k": 0.8095238095238095,
+      "mrr": 0.6904761904761905,
+      "source_chunk_hit": 0.5714285714285714
+    }
+  },
+  "items": [
+    {
+      "id": "eval_001",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_128",
+        "chunk_128",
+        "chunk_224",
+        "chunk_224"
+      ],
+      "source_chunk_ids": [
+        "chunk_127",
+        "chunk_6539"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_002",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "كود قانون الأجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_130",
+        "chunk_130",
+        "chunk_886",
+        "chunk_128"
+      ],
+      "source_chunk_ids": [
+        "chunk_128",
+        "chunk_6540"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_003",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_129",
+        "chunk_129",
+        "chunk_131",
+        "chunk_131"
+      ],
+      "source_chunk_ids": [
+        "chunk_129",
+        "chunk_6541"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_004",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قانونــــ هيئة قضايا الدولة",
+        "كود قانون الأجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_130",
+        "chunk_130",
+        "chunk_9314",
+        "chunk_873"
+      ],
+      "source_chunk_ids": [
+        "chunk_130",
+        "chunk_6542"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_005",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "كود قانون الأجراءات الجنائية",
+        "شرح قانون الاجراءات جزء 2"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_133",
+        "chunk_133",
+        "chunk_876",
+        "chunk_708"
+      ],
+      "source_chunk_ids": [
+        "chunk_133",
+        "chunk_6545"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_006",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_135",
+        "chunk_135",
+        "chunk_315",
+        "chunk_315"
+      ],
+      "source_chunk_ids": [
+        "chunk_134",
+        "chunk_135",
+        "chunk_6546",
+        "chunk_6547"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_007",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "شرح قانون الاجراءات جزء 1",
+        "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 1",
+        "شرح قانون الاجراءات جزء 1",
+        "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 1"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_595",
+        "chunk_626",
+        "chunk_595",
+        "chunk_626"
+      ],
+      "source_chunk_ids": [
+        "chunk_135",
+        "chunk_6547"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_008",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "شرح قانون الاجراءات جزء 2",
+        "شرح قانون الاجراءات جزء 2"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_137",
+        "chunk_137",
+        "chunk_701",
+        "chunk_701"
+      ],
+      "source_chunk_ids": [
+        "chunk_137",
+        "chunk_6549"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_009",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2502",
+        "chunk_2502",
+        "chunk_139",
+        "chunk_139"
+      ],
+      "source_chunk_ids": [
+        "chunk_139",
+        "chunk_6551"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_010",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قانون العمل الموحد",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "كود قانون الأجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_5769",
+        "chunk_141",
+        "chunk_141",
+        "chunk_882"
+      ],
+      "source_chunk_ids": [
+        "chunk_140",
+        "chunk_6552"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.5,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_011",
+      "category": "الدستور",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "دستوري",
+      "retrieved_law_names": [
+        "دستوري",
+        "دستوري",
+        "الدستور",
+        "الدستور"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2031",
+        "chunk_2031",
+        "chunk_2170",
+        "chunk_2170"
+      ],
+      "source_chunk_ids": [
+        "chunk_2030",
+        "chunk_2102",
+        "chunk_8649",
+        "chunk_8721"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_012",
+      "category": "الدستور",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "الدستور المصري",
+      "retrieved_law_names": [
+        "دستوري",
+        "دستوري",
+        "دستوري",
+        "دستوري"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2103",
+        "chunk_2103",
+        "chunk_2031",
+        "chunk_2031"
+      ],
+      "source_chunk_ids": [
+        "chunk_2309",
+        "chunk_8928"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_013",
+      "category": "الدستور",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "الدستور",
+      "retrieved_law_names": [
+        "دستوري",
+        "دستوري",
+        "الدستور",
+        "الدستور"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2031",
+        "chunk_2031",
+        "chunk_2170",
+        "chunk_2170"
+      ],
+      "source_chunk_ids": [
+        "chunk_2170",
+        "chunk_8789"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_014",
+      "category": "الدستور",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "المحكمه الدستوريه",
+      "retrieved_law_names": [
+        "المحكمه الدستوريه",
+        "المحكمه الدستوريه",
+        "دستورية",
+        "المحكمة الدستورية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1991",
+        "chunk_1991",
+        "chunk_2234",
+        "chunk_2269"
+      ],
+      "source_chunk_ids": [
+        "chunk_1994",
+        "chunk_8613"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_015",
+      "category": "الدستور",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "دستورية",
+      "retrieved_law_names": [
+        "المحكمه الدستوريه",
+        "المحكمه الدستوريه",
+        "المحكمة الدستورية",
+        "دستورية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1991",
+        "chunk_1991",
+        "chunk_2269",
+        "chunk_2234"
+      ],
+      "source_chunk_ids": [
+        "chunk_2237",
+        "chunk_8856"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.25,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_016",
+      "category": "الدستور",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "المحكمة الدستورية",
+      "retrieved_law_names": [
+        "المحكمه الدستوريه",
+        "المحكمه الدستوريه",
+        "دستورية",
+        "المحكمة الدستورية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1991",
+        "chunk_1991",
+        "chunk_2234",
+        "chunk_2269"
+      ],
+      "source_chunk_ids": [
+        "chunk_2272",
+        "chunk_8891"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.25,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_017",
+      "category": "الدستور",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "دستوري",
+      "retrieved_law_names": [
+        "الدستور",
+        "الدستور",
+        "دستوري",
+        "دستوري"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2170",
+        "chunk_2170",
+        "chunk_2031",
+        "chunk_2031"
+      ],
+      "source_chunk_ids": [
+        "chunk_2031",
+        "chunk_2103",
+        "chunk_8650",
+        "chunk_8722"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_018",
+      "category": "الدستور",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "الدستور المصري",
+      "retrieved_law_names": [
+        "الدستور",
+        "الدستور",
+        "دستوري",
+        "دستوري"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2170",
+        "chunk_2170",
+        "chunk_2031",
+        "chunk_2031"
+      ],
+      "source_chunk_ids": [
+        "chunk_2309",
+        "chunk_8928"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_019",
+      "category": "الدستور",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "الدستور",
+      "retrieved_law_names": [
+        "الدستور",
+        "الدستور",
+        "دستوري",
+        "دستوري"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2170",
+        "chunk_2170",
+        "chunk_2031",
+        "chunk_2031"
+      ],
+      "source_chunk_ids": [
+        "chunk_2170",
+        "chunk_8789"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_020",
+      "category": "الدستور",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "المحكمه الدستوريه",
+      "retrieved_law_names": [
+        "المحكمة الدستورية",
+        "المحكمة الدستورية",
+        "دستورية",
+        "دستورية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2270",
+        "chunk_2270",
+        "chunk_2235",
+        "chunk_2235"
+      ],
+      "source_chunk_ids": [
+        "chunk_1995",
+        "chunk_8614"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_021",
+      "category": "العقوبات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1441",
+        "chunk_1441",
+        "chunk_1526",
+        "chunk_1526"
+      ],
+      "source_chunk_ids": [
+        "chunk_1414",
+        "chunk_7615"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_022",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1445",
+        "chunk_1445",
+        "chunk_1452",
+        "chunk_1452"
+      ],
+      "source_chunk_ids": [
+        "chunk_1415",
+        "chunk_7616"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_023",
+      "category": "العقوبات",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "نموذج كــود قانون العقوبات",
+        "كود قانون الأجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1699",
+        "chunk_977",
+        "chunk_128",
+        "chunk_128"
+      ],
+      "source_chunk_ids": [
+        "chunk_1416",
+        "chunk_7617"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_024",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "كود قانون الأجراءات الجنائية",
+        "الصحافة والطباعة والنشر",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1086",
+        "chunk_8486",
+        "chunk_1418",
+        "chunk_1418"
+      ],
+      "source_chunk_ids": [
+        "chunk_1418",
+        "chunk_7619"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_025",
+      "category": "العقوبات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون حماية الملكية الفكرية",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "كود قانون المخدرات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_3202",
+        "chunk_1629",
+        "chunk_1629",
+        "chunk_2830"
+      ],
+      "source_chunk_ids": [
+        "chunk_1419",
+        "chunk_7620"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.5,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_026",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "نموذج كــود قانون العقوبات",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "جداول قانون المخدرات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1702",
+        "chunk_1420",
+        "chunk_1420",
+        "chunk_2998"
+      ],
+      "source_chunk_ids": [
+        "chunk_1419",
+        "chunk_7620"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.5,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_027",
+      "category": "العقوبات",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 2",
+        "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 2"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1432",
+        "chunk_1432",
+        "chunk_553",
+        "chunk_553"
+      ],
+      "source_chunk_ids": [
+        "chunk_1420",
+        "chunk_7621"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_028",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "نموذج كــود قانون العقوبات",
+        "قانون العقــــوبات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1422",
+        "chunk_1422",
+        "chunk_1704",
+        "chunk_1421"
+      ],
+      "source_chunk_ids": [
+        "chunk_1421",
+        "chunk_7622"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_029",
+      "category": "العقوبات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "نموذج كــود قانون العقوبات",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_325",
+        "chunk_325",
+        "chunk_1705",
+        "chunk_189"
+      ],
+      "source_chunk_ids": [
+        "chunk_1422",
+        "chunk_7623"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_030",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "كود قانون الأجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_330",
+        "chunk_330",
+        "chunk_1100",
+        "chunk_190"
+      ],
+      "source_chunk_ids": [
+        "chunk_1423",
+        "chunk_7624"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_031",
+      "category": "القوانين والتشريعات",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "القانون المدني",
+      "retrieved_law_names": [
+        "القانون المدني",
+        "قانون العيب",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_10719",
+        "chunk_5121",
+        "chunk_1696",
+        "chunk_1696"
+      ],
+      "source_chunk_ids": [
+        "chunk_10719"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_032",
+      "category": "القوانين والتشريعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1139",
+        "chunk_1139",
+        "chunk_1141",
+        "chunk_1141"
+      ],
+      "source_chunk_ids": [
+        "chunk_1139",
+        "chunk_7340"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_033",
+      "category": "القوانين والتشريعات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون الاحكام العسكريه",
+        "قانون الاحكام العسكريه",
+        "الدستور المصري",
+        "الدستور المصري"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_4718",
+        "chunk_4717",
+        "chunk_2460",
+        "chunk_2460"
+      ],
+      "source_chunk_ids": [
+        "chunk_1414",
+        "chunk_7615"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_034",
+      "category": "القوانين والتشريعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "شرح قانون الاجراءات جزء 2",
+        "شرح قانون الاجراءات جزء 2"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_128",
+        "chunk_128",
+        "chunk_861",
+        "chunk_861"
+      ],
+      "source_chunk_ids": [
+        "chunk_127",
+        "chunk_6539"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_035",
+      "category": "القوانين والتشريعات",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قانون العمل الموحد",
+      "retrieved_law_names": [
+        "عمل",
+        "قانون العمل الموحد",
+        "عمل",
+        "العمل"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_5317",
+        "chunk_5547",
+        "chunk_5340",
+        "chunk_5166"
+      ],
+      "source_chunk_ids": [
+        "chunk_5547"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.5,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_036",
+      "category": "القوانين والتشريعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "عمل",
+      "retrieved_law_names": [
+        "عمل",
+        "قانون العمل الموحد",
+        "العمل",
+        "قانون رقم 12 لسنة 2003بإصدار قانون العمل المصرى 1"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_5317",
+        "chunk_5547",
+        "chunk_5166",
+        "chunk_5780"
+      ],
+      "source_chunk_ids": [
+        "chunk_5317"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_037",
+      "category": "القوانين والتشريعات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "دستوري",
+      "retrieved_law_names": [
+        "الدستور",
+        "الدستور",
+        "دستوري",
+        "دستوري"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2170",
+        "chunk_2170",
+        "chunk_2031",
+        "chunk_2031"
+      ],
+      "source_chunk_ids": [
+        "chunk_2030",
+        "chunk_2102",
+        "chunk_8649",
+        "chunk_8721"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_038",
+      "category": "القوانين والتشريعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "رسوم القضائيه",
+      "retrieved_law_names": [
+        "رسوم القضائيه",
+        "رسوم القضائيه",
+        "رسوم القضائيه",
+        "رسوم القضائيه"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_4486",
+        "chunk_4478",
+        "chunk_4431",
+        "chunk_4477"
+      ],
+      "source_chunk_ids": [
+        "chunk_4421"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_039",
+      "category": "القوانين والتشريعات",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "الدستور المصري",
+      "retrieved_law_names": [
+        "دستوري",
+        "دستوري",
+        "دستوري",
+        "دستوري"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2031",
+        "chunk_2031",
+        "chunk_2103",
+        "chunk_2103"
+      ],
+      "source_chunk_ids": [
+        "chunk_2309",
+        "chunk_8928"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_040",
+      "category": "القوانين والتشريعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون رقم 12 لسنة 2003بإصدار قانون العمل المصرى 1",
+      "retrieved_law_names": [
+        "قانون رقم 12 لسنة 2003بإصدار قانون العمل المصرى 1",
+        "عمل",
+        "قانون العمل الموحد",
+        "قانون رقم 12 لسنة 2003بإصدار قانون العمل المصرى 1"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_5780",
+        "chunk_5317",
+        "chunk_5547",
+        "chunk_5806"
+      ],
+      "source_chunk_ids": [
+        "chunk_5780"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_041",
+      "category": "المرافعات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1139",
+        "chunk_1139",
+        "chunk_27",
+        "chunk_27"
+      ],
+      "source_chunk_ids": [
+        "chunk_1139",
+        "chunk_7340"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_042",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_290",
+        "chunk_290",
+        "chunk_68",
+        "chunk_68"
+      ],
+      "source_chunk_ids": [
+        "chunk_1126",
+        "chunk_7327"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_043",
+      "category": "المرافعات",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "المحكمه الدستوريه",
+        "المحكمه الدستوريه"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1139",
+        "chunk_1139",
+        "chunk_2022",
+        "chunk_2022"
+      ],
+      "source_chunk_ids": [
+        "chunk_1140",
+        "chunk_7341"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_044",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1269",
+        "chunk_1269",
+        "chunk_1127",
+        "chunk_1127"
+      ],
+      "source_chunk_ids": [
+        "chunk_1126",
+        "chunk_1127",
+        "chunk_7327",
+        "chunk_7328"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_045",
+      "category": "المرافعات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+      "retrieved_law_names": [
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "قانون توفيق الأوضاع",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1432",
+        "chunk_1432",
+        "chunk_9664",
+        "chunk_1198"
+      ],
+      "source_chunk_ids": [
+        "chunk_1141",
+        "chunk_7342"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.25,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_046",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1274",
+        "chunk_1274",
+        "chunk_1129",
+        "chunk_1129"
+      ],
+      "source_chunk_ids": [
+        "chunk_1128",
+        "chunk_1129",
+        "chunk_7329",
+        "chunk_7330"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_047",
+      "category": "المرافعات",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1143",
+        "chunk_1143",
+        "chunk_228",
+        "chunk_228"
+      ],
+      "source_chunk_ids": [
+        "chunk_1143",
+        "chunk_7344"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_048",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "شرح قانون الاجراءات جزء 2",
+        "شرح قانون الاجراءات جزء 2"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1284",
+        "chunk_1284",
+        "chunk_739",
+        "chunk_739"
+      ],
+      "source_chunk_ids": [
+        "chunk_1131",
+        "chunk_7332"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_049",
+      "category": "المرافعات",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1144",
+        "chunk_1144",
+        "chunk_239",
+        "chunk_239"
+      ],
+      "source_chunk_ids": [
+        "chunk_1144",
+        "chunk_7345"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_050",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1287",
+        "chunk_1287",
+        "chunk_1133",
+        "chunk_1133"
+      ],
+      "source_chunk_ids": [
+        "chunk_1133",
+        "chunk_7334"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_051",
+      "category": "جمارك",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "رسوم جمركية",
+      "retrieved_law_names": [
+        "رسوم جمركية",
+        "رسوم جمركية",
+        "رسوم جمركية",
+        "رسوم جمركية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2566",
+        "chunk_2568",
+        "chunk_2567",
+        "chunk_2579"
+      ],
+      "source_chunk_ids": [
+        "chunk_2566"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_052",
+      "category": "جمارك",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "التهريب الجمركى",
+      "retrieved_law_names": [
+        "اللجنة الجمركية",
+        "قانون الإستثمار",
+        "اللجنة الجمركية",
+        "التهريب الجمركى"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2705",
+        "chunk_8514",
+        "chunk_2704",
+        "chunk_2520"
+      ],
+      "source_chunk_ids": [
+        "chunk_2516"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.25,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_053",
+      "category": "جمارك",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "اعفاءات جمركية",
+      "retrieved_law_names": [
+        "اعفاءات جمركية",
+        "رسوم جمركية",
+        "اعفاءات جمركية",
+        "غرامة جمركية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2683",
+        "chunk_2597",
+        "chunk_2684",
+        "chunk_2507"
+      ],
+      "source_chunk_ids": [
+        "chunk_2680"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_054",
+      "category": "جمارك",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "اللجنة الجمركية",
+      "retrieved_law_names": [
+        "اللجنة الجمركية",
+        "اللجنة الجمركية",
+        "التهريب الجمركى",
+        "اللجنة الجمركية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2698",
+        "chunk_2707",
+        "chunk_2526",
+        "chunk_2700"
+      ],
+      "source_chunk_ids": [
+        "chunk_2698"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_055",
+      "category": "جمارك",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "المصادرة الجمركية",
+      "retrieved_law_names": [
+        "المصادرة الجمركية",
+        "اللائحة التنفيذية لقانون ضريبة المبيعات",
+        "التهريب الجمركى",
+        "اللائحة التنفيذية لقانون ضريبة المبيعات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2667",
+        "chunk_4986",
+        "chunk_2528",
+        "chunk_4987"
+      ],
+      "source_chunk_ids": [
+        "chunk_2667"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_056",
+      "category": "جمارك",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "غرامة جمركية",
+      "retrieved_law_names": [
+        "غرامة جمركية",
+        "غرامة جمركية",
+        "رسوم جمركية",
+        "غرامة جمركية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2506",
+        "chunk_2506",
+        "chunk_2597",
+        "chunk_2507"
+      ],
+      "source_chunk_ids": [
+        "chunk_2504",
+        "chunk_2510"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_057",
+      "category": "جمارك",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "غرامة جمركية",
+      "retrieved_law_names": [
+        "غرامة جمركية",
+        "غرامة جمركية",
+        "رسوم جمركية",
+        "غرامة جمركية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2506",
+        "chunk_2506",
+        "chunk_2597",
+        "chunk_2504"
+      ],
+      "source_chunk_ids": [
+        "chunk_2504",
+        "chunk_2510"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_058",
+      "category": "جمارك",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "استيراد",
+      "retrieved_law_names": [
+        "استيراد",
+        "القانون رقم 11 لسنة 1991بإصدار قانون الضريبة العامة على المبيعات",
+        "قانون ضريبة الدمغة المصرى",
+        "قانون ضريبة المبيعات المصرية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2662",
+        "chunk_4921",
+        "chunk_9558",
+        "chunk_5035"
+      ],
+      "source_chunk_ids": [
+        "chunk_2662"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_059",
+      "category": "جمارك",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "ماهية البضائع العابرة    ترانزيت",
+      "retrieved_law_names": [
+        "ماهية البضائع العابرة    ترانزيت",
+        "ماهية البضائع العابرة    ترانزيت",
+        "ماهية البضائع العابرة    ترانزيت",
+        "ماهية البضائع العابرة    ترانزيت"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2560",
+        "chunk_2560",
+        "chunk_2563",
+        "chunk_2563"
+      ],
+      "source_chunk_ids": [
+        "chunk_2560",
+        "chunk_2653"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_060",
+      "category": "جمارك",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "ماهية البضائع العابرة    ترانزيت",
+      "retrieved_law_names": [
+        "ماهية البضائع العابرة    ترانزيت",
+        "ماهية البضائع العابرة    ترانزيت",
+        "ماهية البضائع العابرة    ترانزيت",
+        "ماهية البضائع العابرة    ترانزيت"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2560",
+        "chunk_2560",
+        "chunk_2563",
+        "chunk_2563"
+      ],
+      "source_chunk_ids": [
+        "chunk_2560",
+        "chunk_2653"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_061",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_0",
+        "chunk_0",
+        "chunk_14",
+        "chunk_14"
+      ],
+      "source_chunk_ids": [
+        "chunk_0",
+        "chunk_5951"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_062",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+      "retrieved_law_names": [
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2480",
+        "chunk_2480",
+        "chunk_2498",
+        "chunk_2498"
+      ],
+      "source_chunk_ids": [
+        "chunk_2480",
+        "chunk_11207"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_063",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_3",
+        "chunk_3",
+        "chunk_13",
+        "chunk_13"
+      ],
+      "source_chunk_ids": [
+        "chunk_3",
+        "chunk_5954"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_064",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+      "retrieved_law_names": [
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2481",
+        "chunk_2481",
+        "chunk_1432",
+        "chunk_1432"
+      ],
+      "source_chunk_ids": [
+        "chunk_2481",
+        "chunk_11208"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_065",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_20",
+        "chunk_20",
+        "chunk_4",
+        "chunk_4"
+      ],
+      "source_chunk_ids": [
+        "chunk_4",
+        "chunk_5955"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_066",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+      "retrieved_law_names": [
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2482",
+        "chunk_2482",
+        "chunk_2480",
+        "chunk_2480"
+      ],
+      "source_chunk_ids": [
+        "chunk_2482",
+        "chunk_11209"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_067",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_22",
+        "chunk_22",
+        "chunk_34",
+        "chunk_34"
+      ],
+      "source_chunk_ids": [
+        "chunk_5",
+        "chunk_5956"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_068",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+      "retrieved_law_names": [
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2483",
+        "chunk_2483",
+        "chunk_2485",
+        "chunk_2485"
+      ],
+      "source_chunk_ids": [
+        "chunk_2483",
+        "chunk_11210"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_069",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_6",
+        "chunk_6",
+        "chunk_48",
+        "chunk_48"
+      ],
+      "source_chunk_ids": [
+        "chunk_6",
+        "chunk_5957"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_070",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "expected_law_name": "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+      "retrieved_law_names": [
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017",
+        "قانون المواريث رقم 77 لسنة 1943 وفقاً لأحدث تعديل له 2017"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_2498",
+        "chunk_2498",
+        "chunk_2500",
+        "chunk_2500"
+      ],
+      "source_chunk_ids": [
+        "chunk_2483",
+        "chunk_11210"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_071",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_14",
+        "chunk_14",
+        "chunk_77",
+        "chunk_77"
+      ],
+      "source_chunk_ids": [
+        "chunk_0",
+        "chunk_5951",
+        "chunk_2",
+        "chunk_5953"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_072",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "hard",
+      "question_type": "multi_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_3",
+        "chunk_3",
+        "chunk_15",
+        "chunk_15"
+      ],
+      "source_chunk_ids": [
+        "chunk_3",
+        "chunk_5954"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_073",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "قانون الاحوال الشخصية كاملة",
+      "retrieved_law_names": [
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة",
+        "قانون الاحوال الشخصية كاملة"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_7",
+        "chunk_7",
+        "chunk_4",
+        "chunk_4"
+      ],
+      "source_chunk_ids": [
+        "chunk_4",
+        "chunk_5955"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_074",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "شرح قانون الاجراءات جزء 2",
+        "شرح قانون الاجراءات جزء 2"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_128",
+        "chunk_128",
+        "chunk_861",
+        "chunk_861"
+      ],
+      "source_chunk_ids": [
+        "chunk_127",
+        "chunk_6539",
+        "chunk_128",
+        "chunk_6540"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_075",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "hard",
+      "question_type": "multi_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "كود قانون الأجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_871",
+        "chunk_129",
+        "chunk_129",
+        "chunk_131"
+      ],
+      "source_chunk_ids": [
+        "chunk_128",
+        "chunk_6540",
+        "chunk_129",
+        "chunk_6541"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.5,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_076",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "قـــــــــــــــــانون الإجراءات الجنائية",
+      "retrieved_law_names": [
+        "قانون العقــــوبات",
+        "قانون العقــــوبات",
+        "نموذج كــود قانون العقوبات",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1439",
+        "chunk_1439",
+        "chunk_1725",
+        "chunk_127"
+      ],
+      "source_chunk_ids": [
+        "chunk_129",
+        "chunk_6541",
+        "chunk_130",
+        "chunk_6542"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.25,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_077",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1126",
+        "chunk_1126",
+        "chunk_1141",
+        "chunk_1141"
+      ],
+      "source_chunk_ids": [
+        "chunk_1126",
+        "chunk_7327"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_078",
+      "category": "المرافعات",
+      "difficulty": "hard",
+      "question_type": "multi_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "رسوم القضائيه",
+        "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_238",
+        "chunk_238",
+        "chunk_4548",
+        "chunk_1126"
+      ],
+      "source_chunk_ids": [
+        "chunk_1126",
+        "chunk_1127",
+        "chunk_7327",
+        "chunk_7328"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.25,
+      "source_chunk_hit": 1.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_079",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007",
+      "retrieved_law_names": [
+        "القانون المدني",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "قـــــــــــــــــانون الإجراءات الجنائية",
+        "القانون المدني"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_10800",
+        "chunk_239",
+        "chunk_239",
+        "chunk_10799"
+      ],
+      "source_chunk_ids": [
+        "chunk_1128",
+        "chunk_1129",
+        "chunk_7329",
+        "chunk_7330",
+        "chunk_1130",
+        "chunk_7331"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_080",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون العمل الموحد",
+        "العمل",
+        "قانون العقــــوبات",
+        "قانون العقــــوبات"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_5771",
+        "chunk_5304",
+        "chunk_1410",
+        "chunk_1410"
+      ],
+      "source_chunk_ids": [
+        "chunk_1414",
+        "chunk_7615"
+      ],
+      "recall_at_k": 1.0,
+      "mrr": 0.3333333333333333,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": true,
+      "error": null
+    },
+    {
+      "id": "eval_081",
+      "category": "العقوبات",
+      "difficulty": "hard",
+      "question_type": "multi_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "قانون مكافحة غسيل الأموال",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قانون المرافعات المدنية والتجارية وفقاً لأحدث التعديلات",
+        "قـــــــــــــــــانون الإجراءات الجنائية"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_9587",
+        "chunk_1150",
+        "chunk_1150",
+        "chunk_327"
+      ],
+      "source_chunk_ids": [
+        "chunk_1415",
+        "chunk_7616",
+        "chunk_1416",
+        "chunk_7617"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    },
+    {
+      "id": "eval_082",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "question_type": "multi_row",
+      "expected_law_name": "قانون العقــــوبات",
+      "retrieved_law_names": [
+        "نموذج كــود قانون العقوبات",
+        "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 2",
+        "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 2",
+        "شرح قانون الاجراءات جزء 2"
+      ],
+      "retrieved_chunk_ids": [
+        "chunk_1699",
+        "chunk_409",
+        "chunk_409",
+        "chunk_696"
+      ],
+      "source_chunk_ids": [
+        "chunk_1416",
+        "chunk_7617",
+        "chunk_1417",
+        "chunk_7618"
+      ],
+      "recall_at_k": 0.0,
+      "mrr": 0.0,
+      "source_chunk_hit": 0.0,
+      "chunking_loss": false,
+      "error": null
+    }
+  ]
+}

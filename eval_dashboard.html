@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Egyptian Legal RAG Dashboard</title>
+  <style>
+    :root { color-scheme: light; --bg: #100f0f; --panel: #000000; --ink: #717708; --muted: #365245; --line: #dfe5df; --green-bg: #dff4e5; --green: #176b3a; --yellow-bg: #fff1c7; --yellow: #8a5d00; --red-bg: #050404; --red: #a93624; --accent: #245f73; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: Tahoma, Arial, sans-serif; line-height: 1.6; }
+    .page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 44px; }
+    header { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 22px; }
+    h1, h2 { margin: 0; letter-spacing: 0; }
+    h1 { font-size: 30px; line-height: 1.25; }
+    h2 { font-size: 19px; margin: 30px 0 12px; }
+    .subtitle, .meta, .card-label, .card-detail, .legend, .case-score, dt { color: var(--muted); }
+    .subtitle { margin-top: 6px; }
+    .meta { font-size: 14px; text-align: left; direction: ltr; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .summary-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-height: 126px; }
+    .card-label, .card-detail, .legend, .case-score { font-size: 13px; }
+    .card-value { font-size: 34px; font-weight: 700; margin: 10px 0 2px; direction: ltr; text-align: right; }
+    .table-wrap { overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; min-width: 960px; }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: right; vertical-align: middle; white-space: nowrap; }
+    th { color: var(--muted); font-size: 13px; background: #447c0b; cursor: pointer; user-select: none; position: sticky; top: 0; }
+    th:hover { color: var(--accent); }
+    tbody tr:last-child td { border-bottom: 0; }
+    .category { font-weight: 700; min-width: 210px; }
+    .score { display: inline-flex; align-items: center; justify-content: center; min-width: 64px; padding: 3px 9px; border-radius: 999px; direction: ltr; font-weight: 700; font-size: 13px; }
+    .score.high { color: var(--green); background: var(--green-bg); }
+    .score.mid { color: var(--yellow); background: var(--yellow-bg); }
+    .score.low { color: var(--red); background: var(--red-bg); }
+    .score.na { color: var(--muted); background: #eef1ee; }
+    .legend { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 14px; }
+    .cases { display: grid; gap: 10px; }
+    .case { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .case summary { cursor: pointer; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 13px 15px; }
+    .case-rank { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: #e7eef0; color: var(--accent); font-weight: 700; direction: ltr; }
+    .case-title { font-weight: 700; }
+    .case-score { direction: ltr; }
+    .case-body { padding: 0 16px 16px; border-top: 1px solid var(--line); }
+    dl { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 8px 14px; margin: 16px 0 0; }
+    dt { font-weight: 700; }
+    dd { margin: 0; min-width: 0; }
+    .answer { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .note { background: #eef4f5; color: #315765; border: 1px solid #d2e2e5; border-radius: 8px; padding: 12px 14px; direction: ltr; text-align: left; overflow-wrap: anywhere; font-size: 13px; }
+    @media (max-width: 860px) { header { display: block; } .meta { text-align: right; margin-top: 10px; } .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } dl { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .page { width: min(100% - 20px, 1180px); padding-top: 18px; } h1 { font-size: 24px; } .summary-grid { grid-template-columns: 1fr; } .case summary { grid-template-columns: auto 1fr; } .case-score { grid-column: 2; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <h1>Egyptian Legal RAG Dashboard</h1>
+        <div class="subtitle">Retrieval, generation, abstention, and worst-case review in one view.</div>
+      </div>
+      <div class="meta">91 evaluated items &middot; 3 RAGAS rows</div>
+    </header>
+    <section class="summary-grid" aria-label="Summary">
+      
+    <section class="summary-card">
+      <div class="card-label">Retrieval Recall@k</div>
+      <div class="card-value">0.829</div>
+      <div class="card-detail">MRR 0.671 / source hit 0.537</div>
+    </section>
+    
+      
+    <section class="summary-card">
+      <div class="card-label">RAGAS Faithfulness</div>
+      <div class="card-value">1.000</div>
+      <div class="card-detail">Relevancy 0.975</div>
+    </section>
+    
+      
+    <section class="summary-card">
+      <div class="card-label">Trap Abstention</div>
+      <div class="card-value">0.889</div>
+      <div class="card-detail">0 trap questions</div>
+    </section>
+    
+      
+    <section class="summary-card">
+      <div class="card-label">Chunking Loss</div>
+      <div class="card-value">24</div>
+      <div class="card-detail">Rate when law retrieved 35%</div>
+    </section>
+    
+    </section>
+    <h2>Category Scores</h2>
+    <div class="legend"><span class="score high">0.800+</span><span class="score mid">0.600-0.799</span><span class="score low">&lt;0.600</span><span class="score na">n/a</span></div>
+    
+    <div class="table-wrap">
+      <table id="categoryTable">
+        <thead><tr><th scope="col" data-key="category" tabindex="0">Category<span class="sort-mark"></span></th><th scope="col" data-key="count" tabindex="0">Count<span class="sort-mark"></span></th><th scope="col" data-key="recall_at_k" tabindex="0">Recall@k<span class="sort-mark"></span></th><th scope="col" data-key="mrr" tabindex="0">MRR<span class="sort-mark"></span></th><th scope="col" data-key="source_chunk_hit" tabindex="0">Source hit<span class="sort-mark"></span></th><th scope="col" data-key="faithfulness" tabindex="0">Faithfulness<span class="sort-mark"></span></th><th scope="col" data-key="answer_relevancy" tabindex="0">Relevancy<span class="sort-mark"></span></th><th scope="col" data-key="context_precision" tabindex="0">Precision<span class="sort-mark"></span></th><th scope="col" data-key="context_recall" tabindex="0">Context recall<span class="sort-mark"></span></th></tr></thead>
+        <tbody><tr><td class="category" data-sort="الأجراءات الجنائية">الأجراءات الجنائية</td><td data-sort="13">13</td><td data-sort="0.923076923077"><span class="score high">0.923</span></td><td data-sort="0.737179487179"><span class="score mid">0.737</span></td><td data-sort="0.692307692308"><span class="score mid">0.692</span></td><td data-sort="1.000000000000"><span class="score high">1.000</span></td><td data-sort="0.974571928228"><span class="score high">0.975</span></td><td data-sort="0.833333333297"><span class="score high">0.833</span></td><td data-sort="1.000000000000"><span class="score high">1.000</span></td></tr><tr><td class="category" data-sort="الدستور">الدستور</td><td data-sort="10">10</td><td data-sort="0.700000000000"><span class="score mid">0.700</span></td><td data-sort="0.416666666667"><span class="score low">0.417</span></td><td data-sort="0.300000000000"><span class="score low">0.300</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td></tr><tr><td class="category" data-sort="العقوبات">العقوبات</td><td data-sort="13">13</td><td data-sort="0.615384615385"><span class="score mid">0.615</span></td><td data-sort="0.435897435897"><span class="score low">0.436</span></td><td data-sort="0.153846153846"><span class="score low">0.154</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td></tr><tr><td class="category" data-sort="القوانين والتشريعات">القوانين والتشريعات</td><td data-sort="10">10</td><td data-sort="0.800000000000"><span class="score high">0.800</span></td><td data-sort="0.683333333333"><span class="score mid">0.683</span></td><td data-sort="0.500000000000"><span class="score low">0.500</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td></tr><tr><td class="category" data-sort="المرافعات">المرافعات</td><td data-sort="13">13</td><td data-sort="0.769230769231"><span class="score mid">0.769</span></td><td data-sort="0.500000000000"><span class="score low">0.500</span></td><td data-sort="0.615384615385"><span class="score mid">0.615</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td></tr><tr><td class="category" data-sort="جمارك">جمارك</td><td data-sort="10">10</td><td data-sort="1.000000000000"><span class="score high">1.000</span></td><td data-sort="0.925000000000"><span class="score high">0.925</span></td><td data-sort="0.700000000000"><span class="score mid">0.700</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td></tr><tr><td class="category" data-sort="قوانين الأحوال الشخصية">قوانين الأحوال الشخصية</td><td data-sort="13">13</td><td data-sort="1.000000000000"><span class="score high">1.000</span></td><td data-sort="1.000000000000"><span class="score high">1.000</span></td><td data-sort="0.769230769231"><span class="score mid">0.769</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td><td data-sort=""><span class="score na">n/a</span></td></tr></tbody>
+      </table>
+    </div>
+    
+    <h2>Worst Cases</h2>
+    <section class="cases">
+            <details class="case">
+              <summary>
+                <span class="case-rank">1</span>
+                <span class="case-title">eval_007 &middot; الأجراءات الجنائية &middot; hard</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>ما هي المدد التي تنقضي فيها الدعوى الجنائية للجرائم الجنايات والجنح والمخالفات، وما هي الاستثناءات التي لا تسري عليها هذه المدد وفقاً لقانون الإجراءات الجنائية؟</dd>
+                  <dt>Expected law</dt><dd>قـــــــــــــــــانون الإجراءات الجنائية</dd>
+                  <dt>Retrieved laws</dt><dd>شرح قانون الاجراءات جزء 1, شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 1, شرح قانون الاجراءات جزء 1, شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 1</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">المعلومات المطلوبة حول المدد التي تنقضي فيها الدعوى الجنائية للجرائم الجنايات والجنح والمخالفات، بالإضافة إلى الاستثناءات التي لا تسري عليها هذه المدد، غير موجودة في السياق المقدم. لذلك لا يمكنني تقديم إجابة دقيقة بناءً على ما ورد في النص.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">2</span>
+                <span class="case-title">eval_012 &middot; الدستور &middot; medium</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>ما هو الوصف الدستوري لنظام جمهورية مصر العربية؟</dd>
+                  <dt>Expected law</dt><dd>الدستور المصري</dd>
+                  <dt>Retrieved laws</dt><dd>دستوري, دستوري, دستوري, دستوري</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">**الوصف الدستوري لنظام جمهورية مصر العربية**
+
+وفقاً للمادة 1 من الدستور المصري، يُعرّف النظام السياسي في جمهورية مصر العربية على النحو التالي:
+
+1. **دولة إسلامية** – يُعترف بالإسلام بدين الدولة، وتُعتمد مبادئ الشريعة الإسلامية كمصدر رئيسي للتشريع.  
+2. **لغة عربية رسمية** – تُعتمد اللغة العربية كلغة رسمية للبلاد.  
+3. **سيادة الشعب** – تُعتبر السيادة ملكاً للشعب وحده، وهو المصدر الأساسي للسلطة، ويُحفظ ويُحافظ على الوحدة الوطنية وفقاً للدستور.  
+4. **نظام اقتصادي اشتراكي ديمقراطي** – يُعتمد على مبدأ الكفاية والعدل، يهدف إلى منع الاستغلال وتقريب الفوارق بين الدخل، ويحمي الكسب المشروع ويضمن عدالة توزيع الأعباء والتكاليف العامة.  
+5. **نظام سياسي متعدد الأحزاب** – يُنظم القانون الأحزاب السياسية ويُعتمد نظاماً متعدد الأحزاب ضمن إطار المبادئ الأساسية للمجتمع المصري.  
+6. **جنسية مصرية** – تُنظم الجنسية وفقاً للقانون، وتُحدد شروطها وحقوقها في الباب الثاني من الدستور.  
+
+بهذا الشكل، يُصوّر الدستور جمهورية مصر العربية كنظام إسلامي ديمقراطي، يدمج مبادئ الشريعة الإسلامية مع سيادة الشعب، ويعتمد على اقتصاد اشتراكي ديمقراطي، ويُعتمد نظاماً متعدد الأحزاب.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">3</span>
+                <span class="case-title">eval_018 &middot; الدستور &middot; medium</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>ما هو النظام الاقتصادي الذي يحدده الدستور المصري كأساس لجمهورية مصر العربية؟</dd>
+                  <dt>Expected law</dt><dd>الدستور المصري</dd>
+                  <dt>Retrieved laws</dt><dd>الدستور, الدستور, دستوري, دستوري</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">النظام الاقتصادي الذي يحدده الدستور المصري كأساس لجمهورية مصر العربية هو **النظام الاشتراكي الديمقراطي**.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">4</span>
+                <span class="case-title">eval_020 &middot; الدستور &middot; medium</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>ما هي الشروط القانونية التي يجب أن تتوفر في من يُعين عضواً في المحكمة الدستورية؟</dd>
+                  <dt>Expected law</dt><dd>المحكمه الدستوريه</dd>
+                  <dt>Retrieved laws</dt><dd>المحكمة الدستورية, المحكمة الدستورية, دستورية, دستورية</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">وفقاً للمعلومات المتوفرة في السياق، يجب أن يتوفر في المرشح للعضوية في المحكمة الدستورية ما يلي:
+
+1. **توافر الشروط المنصوص عليها في القانون المرافق** – أي أن يكون المرشح يفي بجميع المتطلبات القانونية التي يحددها القانون المرافق للمحكمة الدستورية.  
+2. **إصدار رأي المجلس الأعلى للهيئات القضائية** – يجب أن يُعطى المرشح رأي المجلس الأعلى للهيئات القضائية بشأن كفاءته ومؤهلاته للعضوية.  
+3. **أداء اليمين المنصوص عليها في المادة 6 من القانون المرافق** – بعد تأكيده، يجب أن يؤدي المرشح اليمين أمام رئيس الجمهورية وفقاً للمادة 6 من القانون المرافق.
+
+إذا لم تتوفر هذه الشروط، لا يمكن تعيين المرشح كعضو في المحكمة الدستورية.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">5</span>
+                <span class="case-title">eval_023 &middot; العقوبات &middot; hard</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>هل يجوز رفع دعوى عمومية ضد شخص ارتكب جريمة في الخارج إذا لم تقم بذلك النيابة العامة، أو إذا كانت محكمة أجنبية قد برأته أو حكمت عليه نهائيًا وقد نفّذ العقوبة؟</dd>
+                  <dt>Expected law</dt><dd>قانون العقــــوبات</dd>
+                  <dt>Retrieved laws</dt><dd>نموذج كــود قانون العقوبات, كود قانون الأجراءات الجنائية, قـــــــــــــــــانون الإجراءات الجنائية, قـــــــــــــــــانون الإجراءات الجنائية</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">**الإجابة**  
+بناءً على ما ورد في السياق المقدم، لا يجوز رفع دعوى عمومية ضد شخص ارتكب جريمة في الخارج إذا:
+
+1. **لم تقم النيابة العامة بالرفع** – وفقاً للمادة 3 من قانون الإجراءات الجنائية، لا يجوز رفع الدعوى الجنائية إلا بناءً على شكوى شفهية أو كتابية من المجني عليه أو وكيله، ولا يُسمح ببدء دعوى عمومية دون تدخل النيابة العامة.  
+2. **قد برأته محكمة أجنبية أو حكمت عليه نهائياً وأُنفّذ العقوبة** – وفقاً للفقرة التي تبدأ بـ «وز اقامتها على من يثبت أن المحاكم الأجنبية براته…» (الجزء الأول من القواعد العامة 5)، يُفترض أن يُمنع رفع دعوى عمومية إذا ثبت أن المحكمة الأجنبية قد برأت أو حكمت على المتهم نهائياً وأنه قد نفّذ العقوبة.  
+
+إذن، في حالتين المذكورتين، لا يجوز رفع دعوى عمومية.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">6</span>
+                <span class="case-title">eval_029 &middot; العقوبات &middot; easy</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>متى يبدأ احتساب مدة العقوبة التي تُقيد الحرية، وهل يُخصم منها مدة الحبس الاحتياطي؟</dd>
+                  <dt>Expected law</dt><dd>قانون العقــــوبات</dd>
+                  <dt>Retrieved laws</dt><dd>قـــــــــــــــــانون الإجراءات الجنائية, قـــــــــــــــــانون الإجراءات الجنائية, نموذج كــود قانون العقوبات, قـــــــــــــــــانون الإجراءات الجنائية</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">**متى يبدأ احتساب مدة العقوبة التي تُقيد الحرية؟**  
+حسب المادة **482** من قانون الإجراءات الجنائية، “تبتدئ مدة العقوبة المقيدة للحرية من يوم القبض على المحكوم عليه بناءً على الحكم الواجب التنفيذ”.
+
+**هل يُخصم منها مدة الحبس الاحتياطي؟**  
+نعم. المادة 482 تنص على أن “مع مراعاة انقاصها بمقدار مدة الحبس الاحتياطي ومدة القبض”.  
+أي أنه عند احتساب مدة العقوبة، يُخصم من المدة الإجمالية مدة الحبس الاحتياطي (الاحتياطي الذي تم خلال التحقيق) وكذلك مدة القبض.
+
+**ملاحظات إضافية (مقتطفات من النص)**  
+- إذا كان المتهم قد حُكم عليه برصوبه من جريمة أخرى أثناء الحبس الاحتياطي، يُخصم مدة الحبس من المدة المحكوم بها على تلك الجريمة (المادة 483).  
+- عند وجود أكثر من عقوبة مقيدة للحرية، يُستنزف الحبس الاحتياطي على العقوبة الأقل (المادة 484).  
+
+إذن: يبدأ احتساب مدة العقوبة من يوم القبض، ويُخصم منها مدة الحبس الاحتياطي (وبالإضافة إلى مدة القبض).</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">7</span>
+                <span class="case-title">eval_030 &middot; العقوبات &middot; medium</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>كيف يُخصم من الغرامة في حال حُبس المتهم احتياطيًا ولم يُحكم عليه إلا بالغرامة، وماذا يحدث إذا حُكم عليه بالحبس والغرامة معًا وتجاوزت مدة الحبس الاحتياطي مدة الحبس المحكوم به؟</dd>
+                  <dt>Expected law</dt><dd>قانون العقــــوبات</dd>
+                  <dt>Retrieved laws</dt><dd>قـــــــــــــــــانون الإجراءات الجنائية, قـــــــــــــــــانون الإجراءات الجنائية, كود قانون الأجراءات الجنائية, قـــــــــــــــــانون الإجراءات الجنائية</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">حسب ما ورد في النصوص القانونية المذكورة:
+
+1. **إذا حُبس المتهم احتياطيًا ولم يُحكم عليه إلا بالغرامة**  
+   يُخصم من قيمة الغرامة مبلغ خمسة جنيهات (5 جنيه) عن كل يوم من أيام الحبس الاحتياطي عند تنفيذ الحكم.
+
+2. **إذا حُكم عليه بالحبس والغرامة معًا وتجاوزت مدة الحبس الاحتياطي مدة الحبس المحكوم به**  
+   يُخصم من قيمة الغرامة مبلغ خمسة جنيهات (5 جنيه) عن كل يوم من أيام الزيادة التي تجاوز فيها الحبس الاحتياطي مدة الحبس المُحكوم به.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">8</span>
+                <span class="case-title">eval_033 &middot; القوانين والتشريعات &middot; easy</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>ما هو المبدأ القانوني الذي يقرر إلغاء قانون العقوبات الساري أمام المحاكم المدنية والمحاكم المختلطة واستبداله بقانون العقوبات المرافق لهذا القانون؟</dd>
+                  <dt>Expected law</dt><dd>قانون العقــــوبات</dd>
+                  <dt>Retrieved laws</dt><dd>قانون الاحكام العسكريه, قانون الاحكام العسكريه, الدستور المصري, الدستور المصري</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">لا توجد إجابة في السياق المقدم.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">9</span>
+                <span class="case-title">eval_039 &middot; القوانين والتشريعات &middot; hard</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>كيف يعرّف الدستور المصري جمهورية مصر العربية من حيث نظامها السياسي والاجتماعي؟</dd>
+                  <dt>Expected law</dt><dd>الدستور المصري</dd>
+                  <dt>Retrieved laws</dt><dd>دستوري, دستوري, دستوري, دستوري</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">الدستور المصري يعرّف جمهورية مصر العربية على النحو التالي:
+
+1. **الهوية الدينية واللغوية**  
+   - الإسلام هو دين الدولة.  
+   - اللغة العربية هي اللغة الرسمية.  
+   - مبادئ الشريعة الإسلامية تُعد المصدر الرئيسي للتشريع.
+
+2. **السيادة الشعبية**  
+   - السيادة مملوكة للشعب وحده، وهو مصدر السلطات.  
+   - يُحفظ ويُحافظ على الوحدة الوطنية وفقاً لمبادئ الدستور.
+
+3. **النظام الاقتصادي**  
+   - يُعتمد على نظام اشتراكي ديمقراطي قائم على الكفاية والعدل.  
+   - يهدف إلى منع الاستغلال وتقريب الفوارق بين الدخل، وحماية الكسب المشروع، وتوزيع عادل للأعباء والتكاليف العامة.
+
+4. **النظام السياسي**  
+   - يُبنى على أساس تعدد الأحزاب، وفقاً للمقومات والمبادئ الأساسية للمجتمع المصري المنصوص عليها في الدستور.  
+   - يُنظم القانون الأحزاب السياسية.
+
+5. **الجنسية**  
+   - تُنظم الجنسية المصرية وفقاً للقانون (مادة 6).
+
+بهذا الشكل يعرّف الدستور جمهورية مصر العربية كنظام سياسي واجتماعي يجمع بين الإسلام كدين رسمي، واللغة العربية، والشريعة الإسلامية كمصدر للتشريع، مع سيادة الشعب، ونظام اقتصادي اشتراكي ديمقراطي، ونظام سياسي متعدد الأحزاب، مع تنظيم واضح للجنسية.</dd>
+                </dl>
+              </div>
+            </details>
+            
+
+            <details class="case">
+              <summary>
+                <span class="case-rank">10</span>
+                <span class="case-title">eval_042 &middot; المرافعات &middot; medium</span>
+                <span class="case-score">risk 7.00</span>
+              </summary>
+              <div class="case-body">
+                <dl>
+                  <dt>Question</dt><dd>ما هي القضايا التي تختص محكمة الاستئناف بالنظر فيها وفقًا لتعديل قانون المرافعات رقم 76 لسنة 2007؟</dd>
+                  <dt>Expected law</dt><dd>تعديل قانون المرافعات بالقانون رقم 76 لسنة 2007</dd>
+                  <dt>Retrieved laws</dt><dd>قـــــــــــــــــانون الإجراءات الجنائية, قـــــــــــــــــانون الإجراءات الجنائية, قانون الاحوال الشخصية كاملة, قانون الاحوال الشخصية كاملة</dd>
+                  <dt>Retrieval</dt><dd>Recall@k 0.000; MRR 0.000; source hit 0.000</dd>
+                  <dt>RAGAS</dt><dd>faithfulness=n/a, answer_relevancy=n/a, context_precision=n/a, context_recall=n/a</dd>
+                  <dt>Answer</dt><dd class="answer">لا توجد معلومات في السياق المقدم حول القضايا التي تختص محكمة الاستئناف بالنظر فيها وفقًا لتعديل قانون المرافعات رقم 76 لسنة 2007.</dd>
+                </dl>
+              </div>
+            </details>
+            </section>
+    <h2>RAGAS Note</h2>
+    <pre class="note">{&quot;model&quot;: &quot;openai/gpt-oss-120b&quot;, &quot;metric_error_count&quot;: 2, &quot;metric_errors&quot;: [{&quot;id&quot;: &quot;eval_001&quot;, &quot;metric&quot;: &quot;faithfulness&quot;, &quot;model&quot;: &quot;qwen/qwen3.8-27b&quot;, &quot;attempt&quot;: 2, &quot;type&quot;: &quot;APIConnectionError&quot;, &quot;message&quot;: &quot;Connection error.&quot;}, {&quot;id&quot;: &quot;eval_002&quot;, &quot;metric&quot;: &quot;faithfulness&quot;, &quot;model&quot;: &quot;qwen/qwen3.8-27b&quot;, &quot;attempt&quot;: 2, &quot;type&quot;: &quot;LLMDidNotFinishException&quot;, &quot;message&quot;: &quot;The LLM generation was not completed. Please increase the max_tokens and try again.&quot;}]}</pre>
+  </main>
+  <script>
+    const table = document.getElementById('categoryTable');
+    let sortState = { index: 0, dir: 1 };
+    function sortTable(index) {
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+      const current = sortState.index === index ? -sortState.dir : 1;
+      sortState = { index, dir: current };
+      rows.sort((a, b) => {
+        const av = a.cells[index].dataset.sort || a.cells[index].innerText.trim();
+        const bv = b.cells[index].dataset.sort || b.cells[index].innerText.trim();
+        const an = Number(av);
+        const bn = Number(bv);
+        if (!Number.isNaN(an) && !Number.isNaN(bn)) return (an - bn) * current;
+        return av.localeCompare(bv, 'ar') * current;
+      });
+      rows.forEach(row => tbody.appendChild(row));
+      table.querySelectorAll('th').forEach((th, i) => {
+        th.querySelector('.sort-mark').textContent = i === index ? (current === 1 ? ' asc' : ' desc') : '';
+      });
+    }
+    table.querySelectorAll('th').forEach((th, index) => {
+      th.addEventListener('click', () => sortTable(index));
+      th.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          sortTable(index);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

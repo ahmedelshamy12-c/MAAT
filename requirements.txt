@@ -1,0 +1,11 @@
+datasets
+groq
+chromadb
+streamlit
+tiktoken
+python-dotenv
+sentence-transformers
+torch
+# New
+ragas 
+pandas

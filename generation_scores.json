@@ -1,0 +1,228 @@
+{
+  "overall": {
+    "ragas_count": 3,
+    "trap_count": 9,
+    "abstention_accuracy": 0.8888888888888888,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.974571928227654,
+    "context_precision": 0.8333333332972223,
+    "context_recall": 1.0
+  },
+  "by_category": {
+    "الأجراءات الجنائية": {
+      "count": 3,
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.974571928227654,
+      "context_precision": 0.8333333332972223,
+      "context_recall": 1.0
+    }
+  },
+  "by_difficulty": {
+    "easy": {
+      "count": 1,
+      "faithfulness": null,
+      "answer_relevancy": 0.9912260244718607,
+      "context_precision": 0.9999999999666667,
+      "context_recall": 1.0
+    },
+    "medium": {
+      "count": 1,
+      "faithfulness": null,
+      "answer_relevancy": 0.9813400332626612,
+      "context_precision": 0.499999999975,
+      "context_recall": 1.0
+    },
+    "hard": {
+      "count": 1,
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9511497269484404,
+      "context_precision": 0.99999999995,
+      "context_recall": 1.0
+    }
+  },
+  "trap_abstention_by_category": {
+    "الأجراءات الجنائية": {
+      "count": 1,
+      "abstention_correct": 1.0
+    },
+    "قوانين الأحوال الشخصية": {
+      "count": 2,
+      "abstention_correct": 0.5
+    },
+    "جمارك": {
+      "count": 2,
+      "abstention_correct": 1.0
+    },
+    "القوانين والتشريعات": {
+      "count": 1,
+      "abstention_correct": 1.0
+    },
+    "العقوبات": {
+      "count": 1,
+      "abstention_correct": 1.0
+    },
+    "الدستور": {
+      "count": 1,
+      "abstention_correct": 1.0
+    },
+    "المرافعات": {
+      "count": 1,
+      "abstention_correct": 1.0
+    }
+  },
+  "ragas_error": {
+    "model": "openai/gpt-oss-120b",
+    "metric_error_count": 2,
+    "metric_errors": [
+      {
+        "id": "eval_001",
+        "metric": "faithfulness",
+        "model": "qwen/qwen3.8-27b",
+        "attempt": 2,
+        "type": "APIConnectionError",
+        "message": "Connection error."
+      },
+      {
+        "id": "eval_002",
+        "metric": "faithfulness",
+        "model": "qwen/qwen3.8-27b",
+        "attempt": 2,
+        "type": "LLMDidNotFinishException",
+        "message": "The LLM generation was not completed. Please increase the max_tokens and try again."
+      }
+    ]
+  },
+  "ragas_items": [
+    {
+      "id": "eval_001",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "easy",
+      "question_type": "single_row",
+      "faithfulness": null,
+      "answer_relevancy": 0.9912260244718607,
+      "context_precision": 0.9999999999666667,
+      "context_recall": 1.0,
+      "metric_errors": {
+        "faithfulness": {
+          "model": "qwen/qwen3.8-27b",
+          "attempt": 2,
+          "type": "APIConnectionError",
+          "message": "Connection error."
+        }
+      }
+    },
+    {
+      "id": "eval_002",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "question_type": "single_row",
+      "faithfulness": null,
+      "answer_relevancy": 0.9813400332626612,
+      "context_precision": 0.499999999975,
+      "context_recall": 1.0,
+      "metric_errors": {
+        "faithfulness": {
+          "model": "qwen/qwen3.8-27b",
+          "attempt": 2,
+          "type": "LLMDidNotFinishException",
+          "message": "The LLM generation was not completed. Please increase the max_tokens and try again."
+        }
+      }
+    },
+    {
+      "id": "eval_003",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "hard",
+      "question_type": "single_row",
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9511497269484404,
+      "context_precision": 0.99999999995,
+      "context_recall": 1.0
+    }
+  ],
+  "trap_items": [
+    {
+      "id": "eval_083",
+      "category": "الأجراءات الجنائية",
+      "difficulty": "medium",
+      "answer": "لا يوجد في السياق المقدم حد أقصى محدد للحبس الاحتياطي في مخالفات البناء.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    },
+    {
+      "id": "eval_084",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "easy",
+      "answer": "**الإجابة**  \nلا يجيز قانون المواريث المصري توريث الحيوان الأليف إذا أوصى له المتوفى بجزء من التركة.\n\n**السبب**  \n- في نصوص القانون المدني (المادة 908 وما يليه) يُصَدَّح الوصية عندما تُقسِّم أعيان التركة على الورثة الموصى، ولا يُذكر فيها أي استثناء أو إمكانية أن يُعطى نصيبًا لحيوان.  \n- في قانون المواريث رقم 77 لسنة 1943 (المادة 4 وما يليه) يُحدد ترتيب توزيع التركة بين الورثة، ولا يُذكر أي حكم يخول حيوانًا أن يكون وريثًا أو أن يُستحق له نصيب.  \n- الحيوان الأليف لا يُعتبر طرفًا قانونيًا (ليس شخصًا أو كيانًا قانونيًا) ولا يملك حقًا في الإرث وفقًا للنصوص القانونية المذكورة.  \n\nلذلك، إذا أوصى المتوفى بجزء من التركة لحيوان، فإن هذا الجزء يُعتبر غير صالح قانونيًا، ويُعاد توزيعه على الورثة وفقًا لأحكام القانون.",
+      "abstained": false,
+      "abstention_correct": 0.0,
+      "error": null
+    },
+    {
+      "id": "eval_085",
+      "category": "جمارك",
+      "difficulty": "medium",
+      "answer": "لا توجد معلومات في السياق المقدم حول نسبة الضريبة الجمركية المقررة على العملات الرقمية عند إدخالها إلى البلاد.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    },
+    {
+      "id": "eval_086",
+      "category": "القوانين والتشريعات",
+      "difficulty": "hard",
+      "answer": "لا يذكر قانون التحكيم المصري (1994) صراحةً “عقود الفضاء التجاري” في نصه، لكنه يُنظم التحكيم في جميع النزاعات ذات الطابع التجاري أو الاقتصادي، سواء كانت عقوداً تجارية أو غير عقدية، ويشمل ذلك أي علاقة قانونية ذات طابع اقتصادي، بما في ذلك التوريد، الخدمات، التراخيص، الاستثمار، وغيرها.  \n\nوبالتالي، إذا كان نزاعاً يتعلق بعقداً تجارياً في مجال الفضاء، فإن قانون التحكيم يُطبّق عليه كجزء من نطاقه العام للـ “التحكيم التجاري”، ولا يتطلب وجود نص خاص. ومع ذلك، لا توجد أحكام تفصيلية خاصة بآليات التحكيم في عقود الفضاء، لذا يُستحسن اعتماد القواعد العامة للـ “التحكيم التجاري” كما هو منصوص عليه في المادة 2 من القانون، مع مراعاة أي اتفاقات خاصة بين الأطراف أو أي معايير دولية قد تنطبق على الفضاء.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    },
+    {
+      "id": "eval_087",
+      "category": "العقوبات",
+      "difficulty": "medium",
+      "answer": "لا يوجد في السياق المقدم أي ذكر للعقوبة المقررة لاختراق حساب على منصة تواصل اجتماعي.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    },
+    {
+      "id": "eval_088",
+      "category": "الدستور",
+      "difficulty": "easy",
+      "answer": "لا يوجد في السياق أي إشارة إلى أن الدستور يحدد مدة محددة لإجازة الأبوة للموظف العام.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    },
+    {
+      "id": "eval_089",
+      "category": "المرافعات",
+      "difficulty": "medium",
+      "answer": "لا توجد معلومات في السياق المقدم حول ميعاد الطعن الإلكتروني على الأحكام عبر بوابة رقمية رسمية.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    },
+    {
+      "id": "eval_090",
+      "category": "قوانين الأحوال الشخصية",
+      "difficulty": "hard",
+      "answer": "لا يوجد في السياق المقدم أي إشارة أو نص قانوني يحدد ما إذا كانت النفقة الزوجية تسقط أو لا تسقط بسبب تأخير الزوجة في الرد على رسالة إلكترونية من الزوج. لذلك لا يمكن استنتاج ذلك من المعلومات المتوفرة.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    },
+    {
+      "id": "eval_091",
+      "category": "جمارك",
+      "difficulty": "medium",
+      "answer": "لا توجد معلومات في السياق المقدم حول إجراءات الإفراج الجمركي عن مركبات ذاتية القيادة تعمل دون سائق.",
+      "abstained": true,
+      "abstention_correct": 1.0,
+      "error": null
+    }
+  ],
+  "answer_error_count": 0,
+  "answer_error_types": {}
+}

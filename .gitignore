@@ -1,0 +1,8 @@
+.env
+venv/
+chroma_db/
+data/*.lock
+data/*.corrupt
+data/uploads/
+__pycache__/
+*.pyc
