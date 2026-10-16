@@ -5,7 +5,10 @@ streamlit
 tiktoken
 python-dotenv
 sentence-transformers
+rank_bm25
 torch
 # New
 ragas 
 pandas
+pypdf
+python-docx

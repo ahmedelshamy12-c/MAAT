@@ -1,9 +1,10 @@
 {
   "preferences": {
     "2ead66bb-7e35-4325-8f67-c6717f431084": {
-      "language": null,
+      "language": "English",
       "show_sources": true,
-      "retrieval_depth": 4
+      "retrieval_depth": 4,
+      "theme": "light"
     },
     "8d2ac7c1-e851-4fbc-8c30-ca79683b1829": {
       "language": "English",

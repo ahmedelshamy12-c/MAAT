@@ -3,7 +3,7 @@ import hashlib
 import hmac
 import re
 import secrets
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import uuid4
 
@@ -11,8 +11,11 @@ from utils.json_storage import DATA_DIR, StorageError, read_json, update_json
 
 
 USERS_FILE = DATA_DIR / "users.json"
+SESSIONS_FILE = DATA_DIR / "sessions.json"
 USER_DEFAULT = {"users": []}
+SESSIONS_DEFAULT = {"sessions": []}
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+SESSION_TTL_DAYS = 7
 
 
 def utc_now():
@@ -145,3 +148,55 @@ def get_user_by_id(user_id):
         if user.get("id") == user_id:
             return public_user(user)
     return None
+
+
+def _session_is_active(session, now):
+    try:
+        return datetime.fromisoformat(session["expires_at"]) > now
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
+def create_session(user_id):
+    """Create a long-lived, revocable browser session for an authenticated user."""
+    now = datetime.now(timezone.utc)
+    token = secrets.token_urlsafe(32)
+    record = {
+        "token": token,
+        "user_id": user_id,
+        "created_at": now.isoformat(),
+        "expires_at": (now + timedelta(days=SESSION_TTL_DAYS)).isoformat(),
+    }
+
+    def mutator(data):
+        sessions = data.setdefault("sessions", [])
+        sessions[:] = [session for session in sessions if _session_is_active(session, now)]
+        sessions.append(record)
+        return token
+
+    return update_json(SESSIONS_FILE, SESSIONS_DEFAULT, mutator)
+
+
+def get_session_user(token):
+    """Return the public user for a valid session token, otherwise ``None``."""
+    if not isinstance(token, str) or not token:
+        return None
+    now = datetime.now(timezone.utc)
+    data = read_json(SESSIONS_FILE, SESSIONS_DEFAULT)
+    for session in data.get("sessions", []):
+        if hmac.compare_digest(str(session.get("token", "")), token) and _session_is_active(session, now):
+            return get_user_by_id(session.get("user_id"))
+    return None
+
+
+def revoke_session(token):
+    if not isinstance(token, str) or not token:
+        return False
+
+    def mutator(data):
+        sessions = data.setdefault("sessions", [])
+        before = len(sessions)
+        sessions[:] = [session for session in sessions if not hmac.compare_digest(str(session.get("token", "")), token)]
+        return len(sessions) != before
+
+    return update_json(SESSIONS_FILE, SESSIONS_DEFAULT, mutator)

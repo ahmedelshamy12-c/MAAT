@@ -13,6 +13,9 @@ ENGLISH_SMALL_TALK = {
     "good evening",
     "how are you",
     "how are you doing",
+    "how you doing",
+    "how u doing",
+    "how ya doing",
     "how are you today",
     "how is it going",
     "how s it going",
@@ -131,6 +134,10 @@ def is_small_talk(text):
     return bool(
         re.fullmatch(
             r"(?:hi|hello|hey)(?: there)? how are you(?: doing)?(?: today)?",
+            normalized,
+        )
+        or re.fullmatch(
+            r"(?:h+i+|h+e+y+|h+e+l+o+|yo+|howdy+|hiowdy+)(?: there)?",
             normalized,
         )
         or re.fullmatch(r"(?:اهلا|مرحبا) كيف حالك", normalized)

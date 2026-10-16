@@ -1,3 +1,24 @@
 {
-  "uploads": []
+  "uploads": [
+    {
+      "id": "27927717-2b3f-43ed-b7eb-d68e6b95a3e6",
+      "user_id": "2ead66bb-7e35-4325-8f67-c6717f431084",
+      "filename": "1576751803.pdf",
+      "content_type": "application/pdf",
+      "size": 2599703,
+      "stored_path": "uploads\\2ead66bb-7e35-4325-8f67-c6717f431084\\27927717-2b3f-43ed-b7eb-d68e6b95a3e6-1576751803.pdf",
+      "uploaded_at": "2026-10-16T19:04:10.371967+00:00",
+      "rag_status": "Ready for use as private chat context."
+    },
+    {
+      "id": "bec2b6e8-1b36-4958-a67b-3a4f2626f5ae",
+      "user_id": "2ead66bb-7e35-4325-8f67-c6717f431084",
+      "filename": "1576751803.pdf",
+      "content_type": "application/pdf",
+      "size": 2599703,
+      "stored_path": "uploads\\2ead66bb-7e35-4325-8f67-c6717f431084\\bec2b6e8-1b36-4958-a67b-3a4f2626f5ae-1576751803.pdf",
+      "uploaded_at": "2026-10-16T19:05:45.962718+00:00",
+      "rag_status": "Ready for use as private chat context."
+    }
+  ]
 }

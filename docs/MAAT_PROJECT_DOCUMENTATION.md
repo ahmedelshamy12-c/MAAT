@@ -222,7 +222,6 @@ This source-grounding approach is essential because a fluent answer is not neces
 | Bilingual experience | Supports English and Arabic interface text and responses. |
 | Retrieved-source display | Lets users inspect the law names associated with returned passages. |
 | Retrieval depth control | Allows 3, 4, or 6 retrieved sources. |
-| Research Studio | Turns raw facts into a structured legal research prompt. |
 | Legal topics | Provides entry points for common research areas such as contracts and civil liability. |
 | User accounts | Registration and login with salted `scrypt` password hashing. |
 | Conversation history | Saves user conversations and titles them from the first question. |
@@ -393,7 +392,7 @@ MAAT is a bilingual Egyptian legal research assistant that combines lexical sear
 | 6 | Hybrid RAG architecture | BM25 and vector search run together; fused results are reranked by a cross-encoder. |
 | 7 | What each component contributes | BM25 = exact terms; dense retrieval = meaning; reranker = precision. |
 | 8 | Data and preparation | Corpus filtering, 500-token chunks, 80-token overlap, metadata. |
-| 9 | Product experience | Chat, source display, bilingual UI, Research Studio, accounts, preferences. |
+| 9 | Product experience | Chat, source display, bilingual UI, accounts, and preferences. |
 | 10 | Evaluation baseline | Present existing dense-retrieval metrics and clarify Hybrid RAG is future work. |
 | 11 | Safety and limitations | Not legal advice; corpus coverage and source currency matter. |
 | 12 | Roadmap | BM25, fusion, reranking, citations, private-document indexing, production storage. |

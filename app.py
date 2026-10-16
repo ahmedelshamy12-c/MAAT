@@ -1,5 +1,6 @@
 import base64
 import importlib
+import json
 import time
 from html import escape
 from pathlib import Path
@@ -7,26 +8,38 @@ from uuid import uuid4
 
 import streamlit as st
 
-from services.auth_service import authenticate, get_user_by_id, register_user
+from services.auth_service import (
+    authenticate,
+    create_session,
+    get_session_user,
+    get_user_by_id,
+    register_user,
+    revoke_session,
+)
 from services.user_service import (
     delete_conversation,
+    get_most_recent_conversation,
+    get_upload,
     list_conversations,
     list_uploads,
     load_preferences,
     save_conversation,
     save_preferences,
     save_upload,
+    upload_text,
 )
 from utils.chat_routing import is_small_talk
 
 
 ROOT = Path(__file__).resolve().parent
-HERO_IMAGE = ROOT / "assets" / "maat_hero_tutankhamun.jpg"
+HERO_IMAGE = ROOT / "assets" / "maat_intro_lockup_transparent.png"
+BRAND_ICON_IMAGE = ROOT / "assets" / "4.jpeg"
 THEME_FILE = ROOT / "styles" / "theme.css"
+ENGLISH_TOPICS_FILE = ROOT / "data" / "legal_topics_english.json"
 DEFAULT_CHAT_MODELS = ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"]
 LANGUAGES = ["English", "Arabic"]
 DEPTH_OPTIONS = [3, 4, 6]
-STUDIO_STYLES = ["Executive brief", "Risk checklist", "Source map"]
+SESSION_QUERY_KEY = "maat_session"
 
 COPY = {
     "English": {
@@ -44,10 +57,10 @@ COPY = {
         "chat": "Legal AI Chat",
         "documents": "Documents",
         "topics": "Legal Topics",
-        "studio": "Research Studio",
         "profile": "Profile",
         "settings": "Settings",
         "about": "About MAAT",
+        "contact": "Contact Us",
         "question_placeholder": "Ask an Egyptian legal question...",
         "not_advice": "Informational legal assistance only. Verify sources and consult a qualified lawyer before relying on an answer.",
         "sources": "Retrieved sources",
@@ -60,10 +73,10 @@ COPY = {
         "copied": "Copied!",
         "copy_failed": "Could not copy. Check browser clipboard permissions.",
         "suggestions": [
-            "Explain the Egyptian Civil Code in simple language.",
-            "What are the legal requirements for a valid contract?",
-            "Explain the difference between civil and criminal liability.",
-            "Help me understand this legal document.",
+            "Who may initiate a criminal case?",
+            "How does the Constitution describe Egypt's system?",
+            "Which law replaced the former Civil Code?",
+            "When is spousal maintenance due?",
         ],
     },
     "Arabic": {
@@ -81,7 +94,6 @@ COPY = {
         "chat": "المحادثة القانونية",
         "documents": "المستندات",
         "topics": "الموضوعات القانونية",
-        "studio": "استوديو البحث",
         "profile": "الملف الشخصي",
         "settings": "الإعدادات",
         "about": "عن MAAT",
@@ -97,52 +109,61 @@ COPY = {
         "copied": "تم النسخ!",
         "copy_failed": "تعذر النسخ. تحقق من أذونات الحافظة في المتصفح.",
         "suggestions": [
-            "اشرح القانون المدني المصري بلغة بسيطة.",
-            "ما الشروط القانونية لصحة العقد؟",
-            "اشرح الفرق بين المسؤولية المدنية والجنائية.",
-            "ساعدني على فهم هذا المستند القانوني.",
+            "من يختص برفع الدعوى الجنائية؟",
+            "كيف يصف الدستور نظام جمهورية مصر العربية؟",
+            "ما القانون الذي ألغى القانون المدني القديم؟",
+            "متى تستحق الزوجة النفقة؟",
         ],
     },
 }
 
-TOPICS = [
-    ("Contracts", "Validity, obligations, termination, and remedies.", "balance"),
-    ("Civil Liability", "Fault, harm, causation, and compensation.", "gavel"),
-    ("Criminal Procedure", "Investigation, trial guarantees, and rights.", "shield"),
-    ("Personal Status", "Family, inheritance, marriage, and custody.", "family_restroom"),
-    ("Commercial Law", "Companies, trade obligations, and transactions.", "corporate_fare"),
-    ("Customs & Public Law", "Administrative, constitutional, and customs questions.", "account_balance"),
-]
+COPY["Arabic"]["contact"] = "Contact Us"
 
-MAAT_LOGO_SVG = """
-<svg width="54" height="54" viewBox="0 0 64 64" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-<circle cx="32" cy="32" r="29" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
-<path d="M14 35c7.8-11.2 27.5-11.2 36 0-8.5 11.2-28.2 11.2-36 0Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
-<circle cx="32" cy="35" r="6.6" stroke="currentColor" stroke-width="2"/>
-<circle cx="32" cy="35" r="2.5" fill="currentColor"/>
-<path d="M20 22h24M24 17h16M31.8 8v9M15 45c10 5.8 23.6 5.8 34 0M25 51l-3 5M39 51l3 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-<path d="M32 13 19 34h26L32 13Z" stroke="currentColor" stroke-width="1" opacity=".34"/>
-</svg>
-"""
-
-FEATURES = [
-    ("Contract Lens", "Turn a contract question into a structured Egyptian-law review.", "Review this contract under Egyptian law. Summarize validity, obligations, risks, and missing facts."),
-    ("Case Compass", "Frame civil versus criminal liability and likely legal issues.", "Compare the possible civil and criminal liability in this scenario under Egyptian law."),
-    ("Citation Map", "Ask MAAT to separate supported points from uncertain points.", "Answer with a source-grounded structure: supported findings, uncertain points, and questions to verify."),
-    ("Document Brief", "Create a short legal brief from uploaded or pasted document text.", "Help me understand this legal document. Identify parties, obligations, deadlines, and risks."),
-]
+EXPERIENCE_COPY = {
+    "English": {
+        "title": "Explore MAAT",
+        "intro": "A source-aware workspace for navigating Egyptian legal information with greater clarity.",
+        "heading": "What MAAT offers",
+        "back": "Back",
+        "enter": "Enter MAAT",
+        "features": [
+            ("Source-grounded answers", "Research Egyptian legal questions with answers tied to retrieved legal sources.", "menu_book"),
+            ("Arabic and English", "Ask and read in Arabic or English, while working from the Arabic legal corpus.", "translate"),
+            ("Document review", "Upload a document and use MAAT to identify key obligations, deadlines, and risks.", "upload_file"),
+            ("Legal topic browsing", "Browse representative passages from the legal collection before you ask a question.", "account_balance"),
+            ("Research-ready citations", "See the legal sources behind research answers and distinguish evidence from uncertainty.", "format_quote"),
+        ],
+    },
+    "Arabic": {
+        "title": "استكشف MAAT",
+        "intro": "مساحة عمل واعية بالمصادر لاستكشاف المعلومات القانونية المصرية بوضوح أكبر.",
+        "heading": "ما الذي يقدمه MAAT؟",
+        "back": "رجوع",
+        "enter": "دخول MAAT",
+        "features": [
+            ("إجابات قائمة على المصادر", "ابحث في المسائل القانونية المصرية بإجابات مرتبطة بالمصادر القانونية المسترجعة.", "menu_book"),
+            ("العربية والإنجليزية", "اسأل واقرأ بالعربية أو الإنجليزية مع الاستناد إلى المدونة القانونية العربية.", "translate"),
+            ("مراجعة المستندات", "ارفع مستندًا ودع MAAT يساعدك في تحديد الالتزامات والمواعيد والمخاطر الرئيسية.", "upload_file"),
+            ("تصفح الموضوعات القانونية", "اطّلع على مقاطع ممثلة من المجموعة القانونية قبل طرح سؤالك.", "account_balance"),
+            ("إجابات جاهزة للبحث", "اطّلع على المصادر القانونية وراء الإجابات وفرّق بين الأدلة ونقاط عدم اليقين.", "format_quote"),
+        ],
+    },
+}
 
 
 def image_data_uri(path):
     if not path.exists():
         return ""
-    return "data:image/jpeg;base64," + base64.b64encode(path.read_bytes()).decode("ascii")
+    mime_type = "image/png" if path.suffix.lower() == ".png" else "image/jpeg"
+    return f"data:{mime_type};base64," + base64.b64encode(path.read_bytes()).decode("ascii")
 
 
 def inject_styles():
     css = THEME_FILE.read_text(encoding="utf-8") if THEME_FILE.exists() else ""
     hero_uri = image_data_uri(HERO_IMAGE)
-    st.html(f"<style>{css}</style><style>:root {{--maat-hero-image: url('{hero_uri}');}}</style>")
+    icon_uri = image_data_uri(BRAND_ICON_IMAGE)
+    theme_marker = "maat-theme-light" if st.session_state.get("theme") == "light" else "maat-theme-dark"
+    st.html(f"<style>{css}</style><style>:root {{--maat-hero-image: url('{hero_uri}'); --maat-brand-icon: url('{icon_uri}');}}</style><span class='{theme_marker}' aria-hidden='true'></span>")
 
 
 def t(key):
@@ -192,12 +213,16 @@ def init_state():
     st.session_state.setdefault("pending_question", None)
     st.session_state.setdefault("retrieval_depth", 4)
     st.session_state.setdefault("show_sources", True)
+    st.session_state.setdefault("auth_token", None)
+    st.session_state.setdefault("theme", "dark")
 
     # Self-heal bad values (e.g. None from a deselected segmented control).
     if st.session_state.language not in COPY:
         st.session_state.language = "English"
     if st.session_state.retrieval_depth not in DEPTH_OPTIONS:
         st.session_state.retrieval_depth = 4
+    if st.session_state.theme not in {"dark", "light"}:
+        st.session_state.theme = "dark"
 
 
 def current_user():
@@ -210,21 +235,60 @@ def current_user():
     return fresh
 
 
-def login_user(user):
+def restore_latest_conversation(user_id):
+    latest = get_most_recent_conversation(user_id)
+    if latest:
+        st.session_state.conversation_id = latest["id"]
+        st.session_state.messages = latest["messages"]
+        st.session_state.page = "Legal AI Chat"
+
+
+def initialize_user_session(user, resume_conversation=False):
     st.session_state.user = user
     prefs = load_preferences(user["id"])
     language = prefs.get("language", "English")
     st.session_state.language = language if language in COPY else "English"
     st.session_state.show_sources = prefs.get("show_sources", True)
+    st.session_state.theme = prefs.get("theme", "dark")
     depth = prefs.get("retrieval_depth", 4)
     st.session_state.retrieval_depth = depth if depth in DEPTH_OPTIONS else 4
-    st.session_state.page = "Dashboard"
     st.session_state.messages = []
     st.session_state.conversation_id = None
+    st.session_state.page = "Dashboard"
+    if resume_conversation:
+        restore_latest_conversation(user["id"])
+
+
+def login_user(user):
+    initialize_user_session(user)
+    token = create_session(user["id"])
+    st.session_state.auth_token = token
+    st.query_params[SESSION_QUERY_KEY] = token
+
+
+def restore_persistent_login():
+    if st.session_state.get("user"):
+        return
+    token = st.query_params.get(SESSION_QUERY_KEY)
+    if isinstance(token, list):
+        token = token[-1] if token else None
+    user = get_session_user(token)
+    if user:
+        st.session_state.auth_token = token
+        initialize_user_session(user, resume_conversation=True)
+        return
+    if token:
+        del st.query_params[SESSION_QUERY_KEY]
 
 
 def logout():
-    for key in ["user", "messages", "conversation_id", "pending_question"]:
+    token = st.session_state.get("auth_token") or st.query_params.get(SESSION_QUERY_KEY)
+    if isinstance(token, list):
+        token = token[-1] if token else None
+    revoke_session(token)
+    if SESSION_QUERY_KEY in st.query_params:
+        del st.query_params[SESSION_QUERY_KEY]
+    for key in ["user", "messages", "conversation_id", "pending_question", "auth_token"]:
         st.session_state.pop(key, None)
     init_state()
     st.session_state.auth_view = "login"
@@ -236,7 +300,7 @@ def render_intro():
         f"""
         <main class="intro-shell" dir="{t('dir')}">
             <section class="intro-hero">
-                <div class="eye-mark"><span>{MAAT_LOGO_SVG}</span></div>
+                <img class="intro-logo" src="{image_data_uri(HERO_IMAGE)}" alt="Ma'at">
                 <p class="kicker">MAAT | Egyptian Legal AI</p>
                 <h1>{escape(t('headline'))}</h1>
                 <p>{escape(t('intro'))}</p>
@@ -255,7 +319,47 @@ def render_intro():
             st.session_state.auth_view = "login"
             st.rerun()
         if st.button(t("explore"), width="stretch"):
-            st.session_state.auth_view = "register"
+            st.session_state.auth_view = "explore"
+            st.rerun()
+
+
+def render_experience_features(copy):
+    columns = st.columns(3)
+    for index, (title, body, _icon) in enumerate(copy["features"], start=1):
+        with columns[(index - 1) % len(columns)]:
+            st.html(
+                f'''
+                <article class="feature-card" dir="{t("dir")}">
+                    <span>{index:02d}</span>
+                    <strong>{escape(title)}</strong>
+                    <p>{escape(body)}</p>
+                </article>
+                '''
+            )
+
+
+def render_experience():
+    copy = EXPERIENCE_COPY[st.session_state.language]
+    st.html(
+        f'''
+        <section class="page-hero" dir="{t("dir")}">
+            <p class="kicker">MAAT | Egyptian Legal AI</p>
+            <h1>{escape(copy["title"])}</h1>
+            <p>{escape(copy["intro"])}</p>
+        </section>
+        '''
+    )
+    st.html(f'<h3 class="section-title">{escape(copy["heading"])}</h3>')
+    render_experience_features(copy)
+
+    left, middle, right = st.columns([1, 1, 1])
+    with left:
+        if st.button(copy["back"], width="stretch"):
+            st.session_state.auth_view = "intro"
+            st.rerun()
+    with middle:
+        if st.button(copy["enter"], type="primary", width="stretch"):
+            st.session_state.auth_view = "login"
             st.rerun()
 
 
@@ -265,13 +369,16 @@ def render_auth():
     if st.session_state.auth_view == "intro":
         render_intro()
         return
+    if st.session_state.auth_view == "explore":
+        render_experience()
+        return
 
     left, right = st.columns([1.1, 0.9], gap="large", vertical_alignment="center")
     with left:
         st.html(
             f"""
             <section class="auth-art" dir="{t('dir')}">
-                <div class="eye-mark">{MAAT_LOGO_SVG}</div>
+                <div class="auth-wordmark">MAAT</div>
                 <p class="kicker">MAAT | Egyptian Legal AI</p>
                 <h1>{escape(t('headline'))}</h1>
                 <p>{escape(t('intro'))}</p>
@@ -316,21 +423,22 @@ def persist_preferences(user_id):
             "language": st.session_state.language,
             "show_sources": st.session_state.show_sources,
             "retrieval_depth": st.session_state.retrieval_depth,
+            "theme": st.session_state.theme,
         },
     )
 
 
 def render_sidebar(user):
     with st.sidebar:
-        st.html(f'<div class="brand-lockup"><div class="brand-symbol">{MAAT_LOGO_SVG}</div><div><b>MAAT</b><span>{escape(t("tagline"))}</span></div></div>')
+        st.html(f'<div class="brand-lockup"><div class="brand-symbol" role="img" aria-label="Ma’at"></div><div><b>MAAT</b><span>{escape(t("tagline"))}</span></div></div>')
         if st.button(t("new"), icon=":material/add:", width="stretch"):
             st.session_state.messages = []
             st.session_state.conversation_id = str(uuid4())
             st.session_state.page = "Legal AI Chat"
             st.rerun()
 
-        page_labels = [t("dashboard"), t("chat"), t("documents"), t("topics"), t("studio"), t("profile"), t("settings"), t("about")]
-        page_values = ["Dashboard", "Legal AI Chat", "Documents", "Legal Topics", "Research Studio", "Profile", "Settings", "About MAAT"]
+        page_labels = [t("dashboard"), t("chat"), t("topics"), t("profile"), t("settings"), t("about"), t("contact")]
+        page_values = ["Dashboard", "Legal AI Chat", "Legal Topics", "Profile", "Settings", "About MAAT", "Contact Us"]
         current_index = page_values.index(st.session_state.page) if st.session_state.page in page_values else 0
         selected_label = st.radio("Navigation", page_labels, index=current_index, label_visibility="collapsed")
         st.session_state.page = dict(zip(page_labels, page_values))[selected_label]
@@ -338,14 +446,35 @@ def render_sidebar(user):
         st.divider()
         st.caption("Chat history")
         for item in list_conversations(user["id"])[:8]:
-            if st.button(item["title"], key=f"conv-{item['id']}", width="stretch"):
-                st.session_state.conversation_id = item["id"]
-                st.session_state.messages = item.get("messages", [])
-                st.session_state.page = "Legal AI Chat"
-                st.rerun()
+            chat_column, delete_column = st.columns([3, 1], gap="small")
+            with chat_column:
+                if st.button(item["title"], key=f"conv-{item['id']}", width="stretch"):
+                    st.session_state.conversation_id = item["id"]
+                    st.session_state.messages = item.get("messages", [])
+                    st.session_state.page = "Legal AI Chat"
+                    st.rerun()
+            with delete_column:
+                if st.button(
+                    "Delete",
+                    icon=":material/delete:",
+                    key=f"delete-conv-{item['id']}",
+                    help="Delete this conversation",
+                    width="stretch",
+                ):
+                    delete_conversation(user["id"], item["id"])
+                    if st.session_state.conversation_id == item["id"]:
+                        st.session_state.messages = []
+                        st.session_state.conversation_id = None
+                    st.rerun()
 
         st.divider()
         render_language_selector("sidebar_language_widget", user["id"])
+        theme_label = "Light theme" if st.session_state.theme == "dark" else "Dark theme"
+        theme_icon = ":material/light_mode:" if st.session_state.theme == "dark" else ":material/dark_mode:"
+        if st.button(theme_label, icon=theme_icon, key="theme_toggle", width="stretch"):
+            st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
+            persist_preferences(user["id"])
+            st.rerun()
         if st.button(t("logout"), icon=":material/logout:", width="stretch"):
             logout()
 
@@ -378,36 +507,34 @@ def render_sources(sources):
             )
 
 
-def render_feature_deck(prefix):
-    st.html('<h3 class="section-title">Legal command suite</h3>')
-    cols = st.columns(4)
-    for index, (title, body, prompt) in enumerate(FEATURES):
-        with cols[index % 4]:
-            st.html(
-                f"""
-                <article class="feature-card">
-                    <span>0{index + 1}</span>
-                    <strong>{escape(title)}</strong>
-                    <p>{escape(body)}</p>
-                </article>
-                """
-            )
-            if st.button(f"Open {title}", key=f"{prefix}-feature-{index}", width="stretch"):
-                st.session_state.pending_question = prompt
-                st.session_state.page = "Legal AI Chat"
-                st.rerun()
+@st.cache_data(ttl=300, show_spinner=False)
+def load_topic_law_excerpts():
+    rag = importlib.import_module("RAG")
+    return rag.get_law_excerpts(max_laws=7, chunks_per_law=2)
+
+
+@st.cache_data(show_spinner=False)
+def load_english_topic_law_excerpts():
+    if not ENGLISH_TOPICS_FILE.exists():
+        return []
+    translations = json.loads(ENGLISH_TOPICS_FILE.read_text(encoding="utf-8"))
+    return list(translations.values())
 
 
 def render_message(message, index):
     if message["role"] == "user":
         st.html(f'<div class="message user-message">{escape(message["content"])}</div>')
+        for attachment in message.get("attachments", []):
+            st.caption(f":material/attach_file: {attachment.get('filename', 'Attached document')}")
         return
     with st.container(key=f"assistant-message-{index}"):
         st.markdown(message["content"])
-        if message.get("sources") is not None:
+        # Casual replies deliberately carry no citations. Empty source lists are
+        # also not rendered as a misleading "no sources" legal-answer block.
+        if message.get("sources"):
             st.caption(t("not_advice"))
             if st.session_state.show_sources:
-                render_sources(message.get("sources", []))
+                render_sources(message["sources"])
         answer = escape(message["content"], quote=True)
         copy_label = escape(t("copy"), quote=True)
         copied_label = escape(t("copied"), quote=True)
@@ -441,10 +568,31 @@ def render_message(message, index):
         )
 
 
-def ask_question(user, question):
+def document_context_for_messages(user_id, messages):
+    sections = []
+    seen_uploads = set()
+    for message in messages:
+        for attachment in message.get("attachments", []):
+            upload_id = attachment.get("id")
+            if upload_id in seen_uploads:
+                continue
+            seen_uploads.add(upload_id)
+            record = get_upload(user_id, upload_id)
+            if record:
+                sections.append(f"File: {record['filename']}\n{upload_text(record)}")
+    return "\n\n---\n\n".join(sections)
+
+
+def ask_question(user, question, attachments=None):
     if not st.session_state.conversation_id:
         st.session_state.conversation_id = str(uuid4())
-    st.session_state.messages.append({"role": "user", "content": question})
+    user_message = {"role": "user", "content": question}
+    if attachments:
+        user_message["attachments"] = attachments
+    st.session_state.messages.append(user_message)
+    # Persist the user turn before model work begins so a refresh or provider
+    # failure cannot orphan the active conversation.
+    save_conversation(user["id"], st.session_state.conversation_id, st.session_state.messages)
     st.html(f'<div class="message user-message">{escape(question)}</div>')
 
     small_talk = is_small_talk(question)
@@ -456,10 +604,12 @@ def ask_question(user, question):
             answer = rag.generate_chat_response(question, history=history)
             sources = None
         else:
+            document_context = document_context_for_messages(user["id"], st.session_state.messages)
             answer, sources = rag.generate_answer(
                 question,
                 k=st.session_state.retrieval_depth,
                 history=history,
+                document_context=document_context,
             )
         elapsed = time.perf_counter() - started_at
         status.update(
@@ -467,7 +617,9 @@ def ask_question(user, question):
             state="complete",
         )
 
-    assistant_message = {"role": "assistant", "content": answer, "sources": sources}
+    assistant_message = {"role": "assistant", "content": answer}
+    if sources:
+        assistant_message["sources"] = sources
     st.session_state.messages.append(assistant_message)
     render_message(assistant_message, len(st.session_state.messages) - 1)
     save_conversation(user["id"], st.session_state.conversation_id, st.session_state.messages)
@@ -489,8 +641,6 @@ def render_dashboard(user):
     c1.metric("Conversations", len(conversations), icon=":material/chat:")
     c2.metric("Uploaded documents", len(uploads), icon=":material/upload_file:")
     c3.metric("Retrieval depth", f"{st.session_state.retrieval_depth} sources", icon=":material/database:")
-
-    render_feature_deck("dash")
 
     st.html('<h3 class="section-title">Suggested questions</h3>')
     cols = st.columns(2)
@@ -524,76 +674,62 @@ def render_chat(user):
 
     prompt = st.session_state.pending_question
     st.session_state.pending_question = None
-    typed = st.chat_input(t("question_placeholder"), key="legal_chat_input")
-    if typed:
-        prompt = typed
+    attachments = []
+    submitted = st.chat_input(
+        t("question_placeholder"),
+        key="legal_chat_input",
+        accept_file="multiple",
+        file_type=["pdf", "docx", "txt", "md"],
+        max_upload_size=10,
+    )
+    if submitted:
+        prompt = submitted.text
+        try:
+            for uploaded_file in submitted.files:
+                record = save_upload(user["id"], uploaded_file)
+                attachments.append({"id": record["id"], "filename": record["filename"]})
+        except Exception as error:
+            st.error(f"Could not attach document: {error}")
+            return
+        if attachments and not prompt.strip():
+            prompt = "Please review the attached document(s)."
     if prompt:
         try:
-            ask_question(user, prompt)
+            ask_question(user, prompt, attachments=attachments)
         except Exception as error:
             st.error("MAAT could not generate an answer. Check GROQ_API_KEY, the local embedding model, and the Chroma collection.", icon=":material/error:")
             with st.expander("Error details"):
                 st.code(str(error))
 
 
-def render_documents(user):
-    st.html(f'<section class="page-hero compact"><h1>{escape(t("documents"))}</h1><p>Upload legal files for user-specific tracking. Prototype uploads are stored separately from the shared vector corpus.</p></section>')
-    uploaded = st.file_uploader("Upload a legal document", type=["pdf", "docx", "txt", "md"])
-    if uploaded and st.button("Save document", type="primary"):
-        try:
-            record = save_upload(user["id"], uploaded)
-            st.success(f"Stored {record['filename']} for your account.")
-        except Exception as error:
-            st.error(str(error))
-
-    uploads = list_uploads(user["id"])
-    if not uploads:
-        st.info("No uploaded documents yet.")
-    for item in uploads:
-        st.html(f'<div class="list-row"><strong>{escape(item["filename"])}</strong><span>{item["size"]:,} bytes | {escape(item["rag_status"])}</span></div>')
-
-
 def render_topics():
-    st.html(f'<section class="page-hero compact"><h1>{escape(t("topics"))}</h1><p>Fast entry points for common Egyptian legal research areas.</p></section>')
-    cols = st.columns(3)
-    for i, (title, body, icon) in enumerate(TOPICS):
-        with cols[i % 3]:
-            if st.button(f":material/{icon}: {title}", key=f"topic-{title}", width="stretch"):
-                st.session_state.pending_question = f"Explain key Egyptian law principles for {title}."
-                st.session_state.page = "Legal AI Chat"
-                st.rerun()
-            st.caption(body)
+    st.html(f'<section class="page-hero compact"><h1>{escape(t("topics"))}</h1><p>Read representative passages from the legal sources in the collection.</p></section>')
+    st.html('<h3 class="section-title">Browse source passages</h3>')
+    st.caption("English excerpts are pre-translated from Arabic source text." if st.session_state.language == "English" else "Representative excerpts are loaded directly from the Egyptian-law Chroma collection.")
+    try:
+        if st.session_state.language == "English":
+            laws = load_english_topic_law_excerpts()
+        else:
+            with st.spinner("Loading legal source passages..."):
+                laws = load_topic_law_excerpts()
+    except Exception as error:
+        st.error("Legal source passages could not be loaded from Chroma.")
+        with st.expander("Error details"):
+            st.code(str(error))
+        laws = []
 
+    for law in laws:
+        display_name = law["law_name"]
+        source_detail = "Pre-translated from Arabic source text" if st.session_state.language == "English" else str(law["categories"])
+        st.html(
+            f'<article class="source-card"><span>Egyptian legal source</span><strong>{escape(display_name)}</strong><em>{escape(source_detail)}</em></article>'
+        )
+        for index, excerpt in enumerate(law["excerpts"], start=1):
+            st.markdown(f"**Excerpt {index}**")
+            st.write(excerpt)
 
-def render_research_studio(user):
-    st.html(
-        """
-        <section class="page-hero compact">
-            <p class="kicker">MAAT RESEARCH STUDIO</p>
-            <h1>Build a sharper legal prompt</h1>
-            <p>Turn raw facts into a structured legal research request, then send it into the existing Egyptian-law RAG assistant.</p>
-        </section>
-        """
-    )
-    render_feature_deck("studio")
-    st.html('<h3 class="section-title">Draft a legal research brief</h3>')
-    with st.form("research_studio_form", border=False):
-        matter_type = st.selectbox("Matter type", ["Contract", "Civil liability", "Criminal procedure", "Personal status", "Commercial", "Administrative"])
-        facts = st.text_area("Facts or document excerpt", height=180, placeholder="Paste the key facts, clause, or legal document excerpt here.")
-        output_style = st.radio("Answer style", STUDIO_STYLES, horizontal=True)
-        submitted = st.form_submit_button("Send to MAAT", type="primary", width="stretch")
-        if submitted:
-            if not facts.strip():
-                st.error("Add facts or a document excerpt before sending.")
-            else:
-                st.session_state.pending_question = (
-                    f"Analyze this {matter_type.lower()} matter under Egyptian law. "
-                    f"Use the style: {output_style}. "
-                    "Separate source-supported points from assumptions and list practical next questions.\n\n"
-                    f"Facts:\n{facts.strip()}"
-                )
-                st.session_state.page = "Legal AI Chat"
-                st.rerun()
+    if not laws:
+        st.info("No legal source passages are available in the collection yet.")
 
 
 def render_profile(user):
@@ -627,20 +763,64 @@ def render_settings(user):
 
 
 def render_about():
+    copy = EXPERIENCE_COPY[st.session_state.language]
     st.html(
-        """
-        <section class="page-hero compact">
+        f"""
+        <section class="page-hero" dir="{t('dir')}">
+            <p class="kicker">MAAT | Egyptian Legal AI</p>
             <h1>About MAAT</h1>
-            <p>MAAT combines an Egyptian legal retrieval pipeline with a refined Streamlit interface. The prototype uses JSON persistence for accounts, preferences, conversations, and upload metadata; migrate to SQLite or PostgreSQL before public production use.</p>
+            <p>{escape(copy['intro'])} MAAT uses hybrid retrieval to ground each answer in the legal collection.</p>
         </section>
         """
     )
-    st.info("The RAG workflow remains connected to the existing Chroma collection and Groq configuration. MAAT does not fabricate guaranteed legal advice.")
-    for model in DEFAULT_CHAT_MODELS:
-        st.badge(model, icon=":material/check_circle:", color="green")
+    st.html(f'<h3 class="section-title">{escape(copy["heading"])}</h3>')
+    render_experience_features(copy)
+    st.html('<h3 class="section-title">How MAAT works</h3>')
+    st.markdown("MAAT uses hybrid retrieval-augmented generation (RAG) to connect legal questions with relevant Egyptian legal material before drafting a response.")
+    st.html(
+        """
+        <section class="rag-flow">
+            <article class="rag-step"><strong>1. Understand the question</strong><p>MAAT converts the question into a semantic embedding so it can look for passages with similar legal meaning, even when the wording differs.</p></article>
+            <article class="rag-step"><strong>2. Run two retrieval methods</strong><p>Dense search queries the Chroma vector store for meaning; BM25 keyword search finds passages that share important legal terms with the question.</p></article>
+            <article class="rag-step"><strong>3. Fuse the rankings</strong><p>Reciprocal-rank fusion combines both result lists, rewarding passages that rank strongly in either retrieval method.</p></article>
+            <article class="rag-step"><strong>4. Generate with evidence</strong><p>The highest-ranked passages are given to the language model as context, helping it produce a source-aware answer and show the retrieved sources.</p></article>
+        </section>
+        """
+    )
+    st.info("MAAT supports legal research and learning. It does not provide legal advice, representation, or a guarantee that an answer is complete or current. Verify sources and consult a qualified lawyer for decisions with legal consequences.")
+    model_labels = "".join(f'<span class="maat-model">{escape(model)}</span>' for model in DEFAULT_CHAT_MODELS)
+    st.html(f'<div class="model-list">{model_labels}</div>')
+
+
+def render_contact():
+    st.html(
+        """
+        <section class="page-hero compact">
+            <p class="kicker">MAAT | Egyptian Legal AI</p>
+            <h1>Contact Us</h1>
+            <p>Meet the team behind MAAT in Cairo, Egypt.</p>
+        </section>
+        <p class="contact-location">Cairo, Egypt</p>
+        <section class="contact-team">
+            <article class="feature-card contact-card">
+                <span>Programmer</span>
+                <strong>Ahmed Medhat ElShamy</strong>
+                <p>Ahmed is a 14-year-old programmer with a passion for coding, artificial intelligence, and building useful technology.</p>
+                <p><a href="mailto:Ahmeddelshamii@gmail.com">Ahmeddelshamii@gmail.com</a></p>
+            </article>
+            <article class="feature-card contact-card">
+                <span>Instructor/Sensei</span>
+                <strong>Abdalla Sherif Omar</strong>
+                <p>Abdalla is an AI Engineer and he is the Sensei of Ahmed at MAAT Project.</p>
+                <p><a href="mailto:Abdallaasheriff@gmail.com">Abdallaasheriff@gmail.com</a></p>
+            </article>
+        </section>
+        """
+    )
 
 
 def render_app():
+    restore_persistent_login()
     user = current_user()
     if not user:
         render_auth()
@@ -651,21 +831,19 @@ def render_app():
         render_dashboard(user)
     elif page == "Legal AI Chat":
         render_chat(user)
-    elif page == "Documents":
-        render_documents(user)
     elif page == "Legal Topics":
         render_topics()
-    elif page == "Research Studio":
-        render_research_studio(user)
     elif page == "Profile":
         render_profile(user)
     elif page == "Settings":
         render_settings(user)
+    elif page == "Contact Us":
+        render_contact()
     else:
         render_about()
 
 
-st.set_page_config(page_title="MAAT | Egyptian Legal AI", page_icon=":material/balance:", layout="wide")
+st.set_page_config(page_title="MAAT | Egyptian Legal AI", page_icon=str(BRAND_ICON_IMAGE), layout="wide")
 init_state()
 inject_styles()
 render_app()

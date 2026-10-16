@@ -1,0 +1,58 @@
+{
+  "قانون الاحوال الشخصية كاملة": {
+    "law_name": "Personal Status Law",
+    "categories": "Personal status laws",
+    "excerpts": [
+      "Law No. 25 of 1920, Law No. 25 of 1929, Law No. 1 of 2000, Law No. 10 of 2004 establishing family courts, and Law No. 11 of 2004 establishing the Family Insurance Fund. Under Article 1, a wife is entitled to maintenance from her husband from the date of a valid marriage contract if she places herself at his disposal, even constructively, whether or not she is financially independent or of a different religion. Her illness does not prevent entitlement. Maintenance includes food, clothing, housing, medical expenses, and other matters required by Sharia.",
+      "A wife is not entitled to maintenance if she apostatizes, voluntarily refuses without justification to place herself at her husband's disposal, or leaves without his permission. Leaving the marital home does not end maintenance where permitted by Sharia, custom, necessity, or lawful work that is not an abuse of rights or contrary to the family's interests. Maintenance is a debt owed from the husband's failure to provide it; it is not extinguished except by payment or release. A claim for past maintenance is not heard for more than one year before the filing date."
+    ]
+  },
+  "قـــــــــــــــــانون الإجراءات الجنائية": {
+    "law_name": "Criminal Procedure Code",
+    "categories": "Criminal procedure",
+    "excerpts": [
+      "The Criminal Procedure Code, as amended by Law No. 95 of 2003, is organized into four books: criminal actions, evidence gathering and investigation; courts and jurisdiction; appeals; and execution. Its contents cover criminal actions, evidence gathering, investigation by an investigating judge or the Public Prosecution, courts of contraventions, misdemeanors and felonies, opposition, appeal, cassation, retrial, final judgments, execution of penalties, conditional release, enforcement issues, lapse of punishment by limitation, rehabilitation, and procedural time limits.",
+      "Book One concerns criminal actions, evidence gathering and investigation. Chapter One addresses who may bring a criminal action and cases in which bringing it depends on a complaint or request. Article 1 states that the Public Prosecution has exclusive authority to bring and conduct criminal actions, except in cases specified by law."
+    ]
+  },
+  "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 2": {
+    "law_name": "Criminal Procedure Commentary — Part 2",
+    "categories": "Criminal procedure commentary",
+    "excerpts": [
+      "Question: What are the rules for selecting judges? Two principal systems exist for selecting criminal judges: election and appointment. Supporters of election argue that it accords with democratic principles by giving the public a role in selecting judges and may strengthen judicial independence from the executive. Its disadvantages include that it does not ensure learning and experience in those elected, and that a judge may become linked to the political party that supported the nomination.",
+      "Election may politicize judicial work and make judgments influenced by party principles. It also assumes a fixed term of office, which can hinder the accumulation of experience. Appointment, by contrast, helps select judges with academic and technical qualifications and gives them an opportunity to gain experience; it can also preserve independence from political parties. A stated disadvantage is that executive control over appointment, promotion, and dismissal may threaten judicial independence."
+    ]
+  },
+  "شرح قانون الاجراءات جزء 1": {
+    "law_name": "Criminal Procedure Commentary — Part 1",
+    "categories": "Criminal procedure commentary",
+    "excerpts": [
+      "Criminal Procedure Commentary: Trial and Appeals. The trial stage begins when a case is brought before the court, either directly without a preliminary investigation or after investigation by the competent authority. It is also called the final investigation, in contrast to the preliminary investigation, which seeks evidence and assesses it provisionally for innocence or guilt. Criminal adjudication is carried out by the criminal judiciary, meaning the trial judiciary, as distinct from the investigative and enforcement judiciary.",
+      "Elements of a criminal court include: first, judges, who are the essential element; legislation determines the number of judges composing each criminal court. Second, the Public Prosecution: Article 269 of the Criminal Procedure Code requires a member of the Public Prosecution to attend criminal court hearings; the court must hear that member's statements and decide the requests made. Representation is required at all hearings. Third, the clerk: a clerk's presence follows from the need to prepare minutes of the hearing, allowing the judge to manage the hearing and receive information."
+    ]
+  },
+  "شرح قانون الاجراءات للاستاذ اسامة حسنين جزء 1": {
+    "law_name": "Criminal Procedure Commentary — Part 1",
+    "categories": "Criminal procedure commentary",
+    "excerpts": [
+      "Criminal Procedure Commentary: Trial and Appeals. The trial stage begins when a case is brought before the court, either directly without a preliminary investigation or after investigation by the competent authority. It is also called the final investigation, in contrast to the preliminary investigation, which seeks evidence and assesses it provisionally for innocence or guilt. Criminal adjudication is carried out by the criminal judiciary, meaning the trial judiciary, as distinct from the investigative and enforcement judiciary.",
+      "Elements of a criminal court include: first, judges, who are the essential element; legislation determines the number of judges composing each criminal court. Second, the Public Prosecution: Article 269 of the Criminal Procedure Code requires a member of the Public Prosecution to attend criminal court hearings; the court must hear that member's statements and decide the requests made. Representation is required at all hearings. Third, the clerk: a clerk's presence follows from the need to prepare minutes of the hearing, allowing the judge to manage the hearing and receive information."
+    ]
+  },
+  "شرح قانون الاجراءات جزء 2": {
+    "law_name": "Criminal Procedure Commentary — Part 2",
+    "categories": "Criminal procedure commentary",
+    "excerpts": [
+      "Question: What are the rules for selecting judges? Two principal systems exist for selecting criminal judges: election and appointment. Supporters of election argue that it accords with democratic principles by giving the public a role in selecting judges and may strengthen judicial independence from the executive. Its disadvantages include that it does not ensure learning and experience in those elected, and that a judge may become linked to the political party that supported the nomination.",
+      "Election may politicize judicial work and make judgments influenced by party principles. It also assumes a fixed term of office, which can hinder the accumulation of experience. Appointment, by contrast, helps select judges with academic and technical qualifications and gives them an opportunity to gain experience; it can also preserve independence from political parties. A stated disadvantage is that executive control over appointment, promotion, and dismissal may threaten judicial independence."
+    ]
+  },
+  "كود قانون الأجراءات الجنائية": {
+    "law_name": "Criminal Procedure Code",
+    "categories": "Criminal procedure",
+    "excerpts": [
+      "Criminal Procedure Code, Chapter One: Criminal Actions. Article 1: The Public Prosecution alone has authority to bring and conduct criminal actions. No one else may bring them except in cases stated by law. A criminal action may not be abandoned, suspended, or delayed except in cases stated by law. Article 2: The Prosecutor General, personally or through a member of the Public Prosecution, conducts criminal actions as provided by law; persons appointed by law may also perform the function of the Public Prosecution.",
+      "Article 3: In offenses specified in Articles 185, 274, 277, 279, 292, 293, 303, 306, 307 and 308 of the Penal Code, and other cases stated by law, a criminal action may only be brought on an oral or written complaint by the victim or the victim's special representative to the Public Prosecution or a judicial police officer. A complaint is not accepted after three months from the date the victim learned of the offense and offender, unless law provides otherwise. Article 4: where there are multiple victims, a complaint by one is sufficient; where there are multiple accused persons, a complaint against one is treated as against the others."
+    ]
+  }
+}

@@ -3,6 +3,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from utils.json_storage import DATA_DIR, read_json, update_json
+from services.document_service import compact_document_text, extract_document_text
 
 
 CONVERSATIONS_FILE = DATA_DIR / "conversations.json"
@@ -40,6 +41,17 @@ def get_conversation(user_id, conversation_id):
         if conversation.get("id") == conversation_id:
             return conversation
     return None
+
+
+def get_most_recent_conversation(user_id):
+    return next(
+        (
+            conversation
+            for conversation in list_conversations(user_id)
+            if isinstance(conversation.get("messages"), list) and conversation["messages"]
+        ),
+        None,
+    )
 
 
 def save_conversation(user_id, conversation_id, messages):
@@ -98,6 +110,19 @@ def list_uploads(user_id):
     return sorted(uploads, key=lambda item: item.get("uploaded_at", ""), reverse=True)
 
 
+def get_upload(user_id, upload_id):
+    return next((item for item in list_uploads(user_id) if item.get("id") == upload_id), None)
+
+
+def upload_text(record):
+    if not record:
+        return ""
+    path = DATA_DIR / record["stored_path"]
+    if not path.is_file():
+        raise FileNotFoundError(f"Stored document not found: {record['filename']}")
+    return compact_document_text(extract_document_text(path, record["filename"]))
+
+
 def save_upload(user_id, uploaded_file):
     suffix = Path(uploaded_file.name).suffix.lower().lstrip(".")
     if suffix not in ALLOWED_UPLOAD_TYPES:
@@ -125,7 +150,7 @@ def save_upload(user_id, uploaded_file):
         "size": len(payload),
         "stored_path": stored_reference,
         "uploaded_at": utc_now(),
-        "rag_status": "Stored for this user. Not indexed into the shared legal corpus.",
+        "rag_status": "Ready for use as private chat context.",
     }
 
     def mutator(data):
