@@ -5,7 +5,29 @@ from dotenv import load_dotenv
 from utils.chat_routing import is_about_creator
 
 load_dotenv()
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+
+def _get_secret(key, default=None):
+    """Read from Streamlit secrets first (for Streamlit Cloud), then fall back
+    to OS env vars / .env (for local dev). Avoids importing streamlit at
+    module load time in non-Streamlit contexts."""
+    try:
+        import streamlit as st
+        if key in st.secrets:
+            return st.secrets[key]
+    except Exception:
+        pass
+    return os.getenv(key, default)
+
+
+GROQ_API_KEY = _get_secret("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise RuntimeError(
+        "GROQ_API_KEY is not set. On Streamlit Cloud: App settings -> Secrets -> "
+        'add GROQ_API_KEY = "your-key". Locally: put it in a .env file.'
+    )
+
+client = Groq(api_key=GROQ_API_KEY)
 
 DEFAULT_CHAT_MODELS = [
     "openai/gpt-oss-120b",
@@ -15,7 +37,7 @@ DEFAULT_CHAT_MODELS = [
 
 
 def get_chat_models():
-    configured_models = os.getenv("GROQ_CHAT_MODELS")
+    configured_models = _get_secret("GROQ_CHAT_MODELS")
     if not configured_models:
         return DEFAULT_CHAT_MODELS
 
@@ -23,8 +45,16 @@ def get_chat_models():
     return models or DEFAULT_CHAT_MODELS
 
 
-EMBED_MODEL_NAME = os.getenv("RAG_EMBED_MODEL", "intfloat/multilingual-e5-small")
-EMBED_LOCAL_FILES_ONLY = os.getenv("RAG_EMBED_LOCAL_FILES_ONLY", "true").lower() not in {"0", "false", "no"}
+EMBED_MODEL_NAME = _get_secret("RAG_EMBED_MODEL", "intfloat/multilingual-e5-small")
+# IMPORTANT: default to False. On Streamlit Cloud there is no pre-cached local
+# copy of the model, so local_files_only=True will always raise. Only set
+# RAG_EMBED_LOCAL_FILES_ONLY=true if you've committed the model cache to the repo.
+EMBED_LOCAL_FILES_ONLY = str(_get_secret("RAG_EMBED_LOCAL_FILES_ONLY", "false")).lower() not in {
+    "0",
+    "false",
+    "no",
+}
+
 embed_model = None
 collection = None
 
@@ -42,13 +72,18 @@ def _get_embed_model():
                 local_files_only=EMBED_LOCAL_FILES_ONLY,
             )
         except Exception as error:
-            if EMBED_LOCAL_FILES_ONLY:
-                raise RuntimeError(
-                    f"Embedding model '{EMBED_MODEL_NAME}' is not available locally. "
-                    "Connect to the internet once, or set RAG_EMBED_LOCAL_FILES_ONLY=false to download it."
-                ) from error
-            raise
+            raise RuntimeError(
+                f"Could not load embedding model '{EMBED_MODEL_NAME}'. "
+                f"local_files_only={EMBED_LOCAL_FILES_ONLY}. "
+                "If deploying on Streamlit Cloud, make sure RAG_EMBED_LOCAL_FILES_ONLY "
+                "is NOT set to true (it needs to download the model on first run), "
+                "and that the app has outbound internet access."
+            ) from error
     return embed_model
+
+
+CHROMA_DB_PATH = _get_secret("CHROMA_DB_PATH", "./chroma_db")
+CHROMA_COLLECTION_NAME = _get_secret("CHROMA_COLLECTION_NAME", "egypt_legal")
 
 
 def _get_collection():
@@ -56,8 +91,23 @@ def _get_collection():
     if collection is None:
         import chromadb
 
-        chroma_client = chromadb.PersistentClient(path="./chroma_db")
-        collection = chroma_client.get_collection("egypt_legal")
+        if not os.path.isdir(CHROMA_DB_PATH):
+            raise RuntimeError(
+                f"Chroma DB folder '{CHROMA_DB_PATH}' was not found. "
+                "It must be committed to the GitHub repo (git add -f if .gitignore "
+                "excludes it) or rebuilt on startup, since Streamlit Cloud's "
+                "filesystem does not persist your local data."
+            )
+
+        chroma_client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
+        try:
+            collection = chroma_client.get_collection(CHROMA_COLLECTION_NAME)
+        except Exception as error:
+            existing = [c.name for c in chroma_client.list_collections()]
+            raise RuntimeError(
+                f"Chroma collection '{CHROMA_COLLECTION_NAME}' not found in "
+                f"'{CHROMA_DB_PATH}'. Collections present: {existing or 'none'}."
+            ) from error
     return collection
 
 
