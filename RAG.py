@@ -87,28 +87,19 @@ CHROMA_COLLECTION_NAME = _get_secret("CHROMA_COLLECTION_NAME", "egypt_legal")
 
 
 def _get_collection():
-    global collection
-    if collection is None:
-        import chromadb
+       global collection
+       if collection is None:
+           import chromadb
 
-        if not os.path.isdir(CHROMA_DB_PATH):
-            raise RuntimeError(
-                f"Chroma DB folder '{CHROMA_DB_PATH}' was not found. "
-                "It must be committed to the GitHub repo (git add -f if .gitignore "
-                "excludes it) or rebuilt on startup, since Streamlit Cloud's "
-                "filesystem does not persist your local data."
-            )
-
-        chroma_client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
-        try:
-            collection = chroma_client.get_collection(CHROMA_COLLECTION_NAME)
-        except Exception as error:
-            existing = [c.name for c in chroma_client.list_collections()]
-            raise RuntimeError(
-                f"Chroma collection '{CHROMA_COLLECTION_NAME}' not found in "
-                f"'{CHROMA_DB_PATH}'. Collections present: {existing or 'none'}."
-            ) from error
-    return collection
+           cloud_client = chromadb.CloudClient(
+               api_key=_get_secret("CHROMA_API_KEY"),
+               tenant=_get_secret("CHROMA_TENANT"),
+               database=_get_secret("CHROMA_DATABASE"),
+           )
+           collection = cloud_client.get_collection(
+               _get_secret("CHROMA_COLLECTION_NAME", "egypt_legal")
+           )
+       return collection
 
 
 def _recent_history(history):
