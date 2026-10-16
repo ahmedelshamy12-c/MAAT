@@ -221,8 +221,8 @@ def init_state():
         st.session_state.language = "English"
     if st.session_state.retrieval_depth not in DEPTH_OPTIONS:
         st.session_state.retrieval_depth = 4
-    if st.session_state.theme not in {"dark", "light"}:
-        st.session_state.theme = "dark"
+    # MAAT now ships with one visual theme.
+    st.session_state.theme = "dark"
 
 
 def current_user():
@@ -249,7 +249,7 @@ def initialize_user_session(user, resume_conversation=False):
     language = prefs.get("language", "English")
     st.session_state.language = language if language in COPY else "English"
     st.session_state.show_sources = prefs.get("show_sources", True)
-    st.session_state.theme = prefs.get("theme", "dark")
+    st.session_state.theme = "dark"
     depth = prefs.get("retrieval_depth", 4)
     st.session_state.retrieval_depth = depth if depth in DEPTH_OPTIONS else 4
     st.session_state.messages = []
@@ -469,12 +469,6 @@ def render_sidebar(user):
 
         st.divider()
         render_language_selector("sidebar_language_widget", user["id"])
-        theme_label = "Light theme" if st.session_state.theme == "dark" else "Dark theme"
-        theme_icon = ":material/light_mode:" if st.session_state.theme == "dark" else ":material/dark_mode:"
-        if st.button(theme_label, icon=theme_icon, key="theme_toggle", width="stretch"):
-            st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
-            persist_preferences(user["id"])
-            st.rerun()
         if st.button(t("logout"), icon=":material/logout:", width="stretch"):
             logout()
 
